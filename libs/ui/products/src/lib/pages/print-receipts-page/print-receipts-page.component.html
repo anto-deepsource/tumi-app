@@ -27,7 +27,7 @@
             <td class="w-full">{{ item.product.title }}</td>
             <td class="font-mono">{{ item.quantity }}x</td>
             <td class="font-mono text-right">
-              <span class="ml-4">{{ item.cost | currency: 'EUR' }}</span>
+              <span class="ml-4">{{ item.cost | currency : 'EUR' }}</span>
             </td>
           </tr>
           <tr *ngIf="item.submissions.length">
@@ -46,7 +46,7 @@
         <td class="font-bold">Total</td>
         <td></td>
         <td class="pl-2 font-mono text-right">
-          {{ getTotal(user.purchases) | currency: 'EUR' }}
+          {{ getTotal(user.purchases) | currency : 'EUR' }}
         </td>
       </tr>
     </tbody>

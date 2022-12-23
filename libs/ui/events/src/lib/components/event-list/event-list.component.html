@@ -3,11 +3,11 @@
     <span
       *ngIf="
         i === 0 ||
-        (events[i - 1].start | date: 'shortDate') !==
-          (event.start | date: 'shortDate')
+        (events[i - 1].start | date : 'shortDate') !==
+          (event.start | date : 'shortDate')
       "
       gdColumn="-1/1"
-      >{{ event.start | date: 'EEE d LLLL' }}</span
+      >{{ event.start | date : 'EEE d LLLL' }}</span
     >
     <tumi-event-list-item
       [event]="event"

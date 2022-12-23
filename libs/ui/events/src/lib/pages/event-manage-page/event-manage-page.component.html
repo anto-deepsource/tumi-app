@@ -22,7 +22,7 @@
       <tbody class="select-all">
         <tr *ngFor="let costItem of event.costItems; let i = index">
           <ng-container *ngIf="i === 0">
-            <td>{{ event.start | date: 'dd.MM.yyyy' }}</td>
+            <td>{{ event.start | date : 'dd.MM.yyyy' }}</td>
             <td>{{ event.title }}</td>
           </ng-container>
           <ng-container *ngIf="i !== 0">
@@ -30,10 +30,10 @@
             <td></td>
           </ng-container>
           <td>{{ costItem.name }}</td>
-          <td>{{ costItem.submittedAmount | currency: 'EUR' }}</td>
+          <td>{{ costItem.submittedAmount | currency : 'EUR' }}</td>
         </tr>
         <tr *ngIf="event.costItems.length === 0">
-          <td>{{ event.start | date: 'dd.MM.yyyy' }}</td>
+          <td>{{ event.start | date : 'dd.MM.yyyy' }}</td>
           <td>{{ event.title }}</td>
           <td></td>
           <td></td>
@@ -43,7 +43,7 @@
           <td></td>
           <td></td>
           <td></td>
-          <td>{{ event.netAmountCollected | currency: 'EUR' }}</td>
+          <td>{{ event.netAmountCollected | currency : 'EUR' }}</td>
         </tr>
         <tr>
           <td></td>
@@ -53,7 +53,7 @@
           <td></td>
           <td>
             {{
-              event.submittedSpend - event.netAmountCollected | currency: 'EUR'
+              event.submittedSpend - event.netAmountCollected | currency : 'EUR'
             }}
           </td>
         </tr>
@@ -147,7 +147,7 @@
             Paid:
             <span class="px-1 rounded bg-gray-200 font-mono mr-2">
               {{
-                (registration.payment?.netAmount ?? 0) / 100 | currency: 'EUR'
+                (registration.payment?.netAmount ?? 0) / 100 | currency : 'EUR'
               }}
             </span>
           </p>
@@ -166,7 +166,7 @@
           <p>
             Registered:
             <span class="px-1 rounded bg-gray-200 font-mono">
-              {{ registration.createdAt | date: 'medium' }}
+              {{ registration.createdAt | date : 'medium' }}
             </span>
           </p>
         </div>
@@ -182,7 +182,7 @@
           <p>
             Checked in:
             <span class="px-1 rounded bg-gray-200 font-mono">
-              {{ registration.checkInTime | date: 'medium' }}
+              {{ registration.checkInTime | date : 'medium' }}
             </span>
           </p>
         </div>
@@ -299,7 +299,7 @@
             <td>{{ registration.user.fullName }}</td>
             <td>{{ registration.user.email }}</td>
             <td>{{ registration.user.phone }}</td>
-            <td>{{ registration.checkInTime | date: 'short' }}</td>
+            <td>{{ registration.checkInTime | date : 'short' }}</td>
           </tr>
         </tbody>
       </table>

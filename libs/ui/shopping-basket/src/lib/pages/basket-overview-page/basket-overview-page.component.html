@@ -27,7 +27,7 @@
         <div>
           <h3>{{ item.product.title }}</h3>
           <p>
-            <span>{{ item.cost | currency: 'EUR' }}</span>
+            <span>{{ item.cost | currency : 'EUR' }}</span>
           </p>
           <p *ngFor="let submissions of item.submissions">
             <span class="font-bold">
@@ -41,15 +41,7 @@
         <ng-container *ngIf="item.quantity > 1; else delete">
           <div
             (click)="decreaseQuantity(item.id)"
-            class="
-              px-4
-              py-1
-              cursor-pointer
-              border border-outline-default
-              bg-variant-default
-              text-variant-on
-              rounded-l-full
-            "
+            class="px-4 py-1 cursor-pointer border border-outline-default bg-variant-default text-variant-on rounded-l-full"
           >
             -
           </div>
@@ -57,41 +49,19 @@
         <ng-template #delete>
           <div
             (click)="removeItem(item.id)"
-            class="
-              px-4
-              py-1
-              cursor-pointer
-              border border-outline-default
-              bg-variant-default
-              text-variant-on
-              rounded-l-full
-            "
+            class="px-4 py-1 cursor-pointer border border-outline-default bg-variant-default text-variant-on rounded-l-full"
           >
             ❌
           </div>
         </ng-template>
         <div
-          class="
-            px-4
-            py-1
-            border-t border-b border-outline-default
-            bg-surface-default
-            text-surface-on
-          "
+          class="px-4 py-1 border-t border-b border-outline-default bg-surface-default text-surface-on"
         >
           {{ item.quantity }}
         </div>
         <div
           (click)="increaseQuantity(item.id)"
-          class="
-            px-4
-            py-1
-            cursor-pointer
-            border border-outline-default
-            bg-variant-default
-            text-variant-on
-            rounded-r-full
-          "
+          class="px-4 py-1 cursor-pointer border border-outline-default bg-variant-default text-variant-on rounded-r-full"
         >
           +
         </div>
@@ -99,7 +69,7 @@
     </div>
   </div>
   <h2 class="font-bold mb-4">
-    Total cost: {{ totalCost$ | async | currency: 'EUR' }}
+    Total cost: {{ totalCost$ | async | currency : 'EUR' }}
   </h2>
   <div class="border border-outline-default p-4 rounded-2xl mb-4">
     <h3 class="font-bold mb-2">Information</h3>
