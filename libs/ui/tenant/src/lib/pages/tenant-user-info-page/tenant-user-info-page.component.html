@@ -23,7 +23,7 @@
     <p>Auth0 ID:</p>
     <p>{{ user.authId }}</p>
     <p>Birthday:</p>
-    <p>{{ user.birthdate | date: 'medium' }}</p>
+    <p>{{ user.birthdate | date : 'medium' }}</p>
     <p>University:</p>
     <p>{{ user.university }}</p>
     <p>Phone:</p>
@@ -43,11 +43,11 @@
       <p>Type:</p>
       <p>{{ registration.type | titlecase }}</p>
       <p>Registration date:</p>
-      <p>{{ registration.createdAt | date: 'medium' }}</p>
+      <p>{{ registration.createdAt | date : 'medium' }}</p>
       <p>Event start:</p>
-      <p>{{ registration.event.start | date: 'medium' }}</p>
+      <p>{{ registration.event.start | date : 'medium' }}</p>
       <p>Checkin date:</p>
-      <p>{{ registration.checkInTime | date: 'medium' }}</p>
+      <p>{{ registration.checkInTime | date : 'medium' }}</p>
     </ng-container>
   </div>
 </main>

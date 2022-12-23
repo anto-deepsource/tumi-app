@@ -61,7 +61,7 @@
       *ngIf="registration.didAttend"
     >
       User is already checked in for this event! <br />
-      Checkin at: {{ registration.checkInTime | date: 'medium' }}
+      Checkin at: {{ registration.checkInTime | date : 'medium' }}
     </div>
     <div
       class="bg-red-700 text-white rounded py-2 px-4 font-bold"
@@ -75,7 +75,7 @@
       <p class="">Certificate found!</p>
     </div>
     <div class="my-4 space-y-4">
-      <p class="text-lg">{{certificate.name}}</p>
+      <p class="text-lg">{{ certificate.name }}</p>
       <ng-container *ngIf="certificate.vaccination">
         <p class="text-lg">Vaccination</p>
         <p>
@@ -84,7 +84,7 @@
         </p>
         <p>
           Received {{ certificate.vaccination.relativeDate }} on
-          {{ certificate.vaccination.date | date: 'mediumDate' }}
+          {{ certificate.vaccination.date | date : 'mediumDate' }}
         </p>
       </ng-container>
       <ng-container *ngIf="certificate.test">
@@ -105,16 +105,18 @@
         <p class="text-lg">Recovered</p>
         <p>
           Positive test taken {{ certificate.recovery.relativeDate }} on
-          {{ certificate.recovery.date | date: 'mediumDate' }}
+          {{ certificate.recovery.date | date : 'mediumDate' }}
         </p>
         <p>
           Valid from
-          {{ certificate.recovery.validFrom | date: 'mediumDate' }} to
-          {{ certificate.recovery.validUntil | date: 'mediumDate' }}
+          {{ certificate.recovery.validFrom | date : 'mediumDate' }} to
+          {{ certificate.recovery.validUntil | date : 'mediumDate' }}
         </p>
       </ng-container>
     </div>
-    <button mat-flat-button color="primary" (click)="showScanner()">Show QR scanner</button>
+    <button mat-flat-button color="primary" (click)="showScanner()">
+      Show QR scanner
+    </button>
   </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions fxFlexAlign="end">
