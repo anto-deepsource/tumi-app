@@ -6,7 +6,7 @@
   <h1 class="font-bold">Purchase details</h1>
   <h2>Payment</h2>
   <p>Status: {{ purchase.payment.status }}</p>
-  <p>Amount: {{ purchase.payment.amount / 100 | currency: 'EUR' }}</p>
+  <p>Amount: {{ purchase.payment.amount / 100 | currency : 'EUR' }}</p>
   <h2>Items</h2>
   <mat-list>
     <mat-list-item *ngFor="let item of purchase.items">

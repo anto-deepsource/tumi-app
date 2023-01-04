@@ -5,7 +5,7 @@
     fxLayoutGap="1rem"
     fxLayoutAlign="start start"
   >
-    <p>{{ costItem.amount | currency: 'EUR' }}</p>
+    <p>{{ costItem.amount | currency : 'EUR' }}</p>
     <div>
       <p>{{ costItem.name }}</p>
       <p>{{ costItem.calculationInfo }}</p>
@@ -17,7 +17,7 @@
       *ngIf="costItem.submittedAmount"
       class="bg-yellow-500 px-2 rounded text-white"
     >
-      already submitted: {{ costItem.submittedAmount | currency: 'EUR' }}
+      already submitted: {{ costItem.submittedAmount | currency : 'EUR' }}
     </p>
     <a
       mat-stroked-button

@@ -19,7 +19,7 @@
             *ngFor="let price of availablePrices$ | async"
             [value]="price"
           >
-            {{ price.amount | currency: 'EUR' }}
+            {{ price.amount | currency : 'EUR' }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -129,7 +129,7 @@
       <p class="text-lg font-bold">Your payment is not complete yet</p>
       <p>
         Please make sure to complete you payment by
-        {{ lasPayment | date: 'mediumTime' }} or we will have to cancel your
+        {{ lasPayment | date : 'mediumTime' }} or we will have to cancel your
         registration
       </p>
       <button

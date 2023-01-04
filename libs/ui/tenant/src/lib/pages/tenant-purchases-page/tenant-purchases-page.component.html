@@ -32,14 +32,14 @@
     <ng-container matColumnDef="created">
       <th mat-header-cell *matHeaderCellDef>Created</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.createdAt | date: 'medium' }}
+        {{ element.createdAt | date : 'medium' }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="cost">
       <th mat-header-cell *matHeaderCellDef>Cost</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.payment.amount / 100 | currency: 'EUR' }}
+        {{ element.payment.amount / 100 | currency : 'EUR' }}
       </td>
     </ng-container>
 

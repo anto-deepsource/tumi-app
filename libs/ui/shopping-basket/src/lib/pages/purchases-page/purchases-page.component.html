@@ -7,7 +7,7 @@
     *ngIf="purchases.length !== 0; else empty"
   >
     <div *ngFor="let purchase of purchases">
-      <h3>Purchase from {{ purchase.createdAt | date: 'medium' }}</h3>
+      <h3>Purchase from {{ purchase.createdAt | date : 'medium' }}</h3>
       <p>Status: {{ purchase.status | titlecase }}</p>
       <p>Payment status: {{ purchase.payment.status | titlecase }}</p>
       <button
