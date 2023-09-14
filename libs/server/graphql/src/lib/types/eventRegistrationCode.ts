@@ -133,18 +133,18 @@ export const createRegistrationCodeMutation = mutationField(
     resolve: async (
       source,
       { registrationId, eventId, isPublic, sepaAllowed },
-      context
+      context,
     ) => {
       const { role } = context.assignment;
       let registrationCode;
       if (sepaAllowed && role !== Role.ADMIN) {
         throw new ApolloError(
-          'Only Admins can generate registration codes with SEPA payments!'
+          'Only Admins can generate registration codes with SEPA payments!',
         );
       }
       if (!registrationId && role !== Role.ADMIN) {
         throw new ApolloError(
-          'Only Admins can generate registration codes for new registrations!'
+          'Only Admins can generate registration codes for new registrations!',
         );
       } else if (registrationId) {
         const registration = await context.prisma.eventRegistration.findUnique({
@@ -152,7 +152,7 @@ export const createRegistrationCodeMutation = mutationField(
         });
         if (!registration) {
           throw new ApolloError(
-            'Registration could not be found for id ' + registrationId
+            'Registration could not be found for id ' + registrationId,
           );
         }
         registrationCode = await context.prisma.eventRegistrationCode.create({
@@ -176,7 +176,7 @@ export const createRegistrationCodeMutation = mutationField(
       }
       return registrationCode;
     },
-  }
+  },
 );
 
 export const useRegistrationCodeMutation = mutationField(
@@ -192,7 +192,7 @@ export const useRegistrationCodeMutation = mutationField(
         });
       if (!registrationCode) {
         throw new ApolloError(
-          'Registration code could not be found for: ' + id
+          'Registration code could not be found for: ' + id,
         );
       }
       if (
@@ -202,7 +202,7 @@ export const useRegistrationCodeMutation = mutationField(
         const priceAllowed = await ValidationService.priceAllowed(
           price,
           registrationCode.targetEvent,
-          context
+          context,
         );
         if (!priceAllowed) {
           throw new ApolloError('Price received is not valid in this context');
@@ -217,8 +217,8 @@ export const useRegistrationCodeMutation = mutationField(
         context.user.id,
         price,
         `${baseUrl}?cancel=true&code=${id}`,
-        `${baseUrl}?success=true&code=${id}`
+        `${baseUrl}?success=true&code=${id}`,
       );
     },
-  }
+  },
 );

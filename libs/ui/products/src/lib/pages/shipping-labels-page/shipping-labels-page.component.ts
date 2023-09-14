@@ -16,7 +16,7 @@ export class ShippingLabelsPageComponent implements OnInit {
   constructor(private loadOrderInfoGQL: LoadOrderInfoGQL) {
     this.loadOrdersRef = this.loadOrderInfoGQL.watch();
     this.users$ = this.loadOrdersRef.valueChanges.pipe(
-      map(({ data }) => chunk(data.users, 2))
+      map(({ data }) => chunk(data.users, 2)),
     );
   }
   async ngOnInit() {

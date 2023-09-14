@@ -29,7 +29,7 @@ const httpServer = http.createServer(app);
 if (process.env.DOWN) {
   app.use('/health', (req, res) => res.status(503).send({ maintenance: true }));
   app.use('*', (req, res) =>
-    res.status(503).sendfile(path.join(__dirname, 'assets', 'down.html'))
+    res.status(503).sendfile(path.join(__dirname, 'assets', 'down.html')),
   );
 }
 app.use('/', express.static(path.join(__dirname, '..', 'tumi-app', 'browser')));
@@ -58,7 +58,9 @@ const measurementPlugin = {
         const after = Date.now();
         if (process.env.LOG_OPERATION_TIMES) {
           console.log(
-            `Operation ${requestContext.operationName} took ${after - before}ms`
+            `Operation ${requestContext.operationName} took ${
+              after - before
+            }ms`,
           );
         }
       },
@@ -97,7 +99,7 @@ server.start().then(() => {
   // app.get('ngsw.json', (req, res) => res.sendStatus(404));
   app.get('*', function (request, response) {
     response.sendFile(
-      path.resolve(__dirname, '..', 'tumi-app', 'browser', 'index.html')
+      path.resolve(__dirname, '..', 'tumi-app', 'browser', 'index.html'),
     );
   });
   httpServer.listen({ port: process.env.PORT ?? 3333 }, () => {

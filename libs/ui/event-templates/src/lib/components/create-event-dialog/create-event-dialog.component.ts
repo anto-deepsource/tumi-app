@@ -33,7 +33,7 @@ export class CreateEventDialogComponent implements OnInit, OnDestroy {
       organizers: GetOrganizerOptionsQuery['organizers'];
     },
     private fb: FormBuilder,
-    private dialog: MatDialogRef<CreateEventDialogComponent>
+    private dialog: MatDialogRef<CreateEventDialogComponent>,
   ) {
     this.eventDataForm = this.fb.group({
       start: ['', Validators.required],
@@ -51,14 +51,15 @@ export class CreateEventDialogComponent implements OnInit, OnDestroy {
     this.eventDataForm
       .get('start')
       ?.valueChanges.pipe(takeUntil(this.destroyed$))
-      .subscribe((startValue) =>
-        this.eventDataForm.get('end')?.patchValue(
-          DateTime.fromISO(startValue)
-            .plus({
-              hours: this.data.template?.duration,
-            })
-            .toISO({ includeOffset: false })
-        )
+      .subscribe(
+        (startValue) =>
+          this.eventDataForm.get('end')?.patchValue(
+            DateTime.fromISO(startValue)
+              .plus({
+                hours: this.data.template?.duration,
+              })
+              .toISO({ includeOffset: false }),
+          ),
       );
     this.eventDataForm
       .get('registrationMode')
@@ -84,7 +85,7 @@ export class CreateEventDialogComponent implements OnInit, OnDestroy {
       });
   }
 
-  onSubmit(): void  {
+  onSubmit(): void {
     if (this.eventDataForm.valid) {
       const data = this.eventDataForm.value;
       this.dialog.close({
@@ -93,8 +94,6 @@ export class CreateEventDialogComponent implements OnInit, OnDestroy {
         end: new Date(data.end),
       });
     } else {
-      
-      
     }
   }
 

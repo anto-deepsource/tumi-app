@@ -16,7 +16,7 @@ export class PurchasesPageComponent {
   constructor(private loadPurchasesGQL: LoadPurchasesGQL) {
     this.loadPurchasesRef = this.loadPurchasesGQL.watch();
     this.purchases$ = this.loadPurchasesRef.valueChanges.pipe(
-      map(({ data }) => data.purchases)
+      map(({ data }) => data.purchases),
     );
   }
 
