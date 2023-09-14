@@ -22,7 +22,7 @@ export class NewDataItemDialogComponent implements OnDestroy {
   private destroyed$ = new Subject();
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { mode: 'event' | 'product' },
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -54,15 +54,15 @@ export class NewDataItemDialogComponent implements OnDestroy {
     return this.form.get('data')?.get('choices') as FormArray;
   }
 
-  addChoice(): void  {
+  addChoice(): void {
     this.choices.push(this.fb.control('', Validators.required));
   }
 
-  removeChoice(index: number): void  {
+  removeChoice(index: number): void {
     this.choices.removeAt(index);
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.destroyed$.next(true);
     this.destroyed$.complete();
   }

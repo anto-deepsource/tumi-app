@@ -41,9 +41,9 @@ export const photoShare = objectType({
       resolve: (source) => {
         const lastDot = source.originalBlob.lastIndexOf('.');
         return `/storage/tumi-photos/${encodeURIComponent(
-          source.container
+          source.container,
         )}/${encodeURIComponent(
-          `${source.originalBlob.substr(0, lastDot)}-preview.jpg`
+          `${source.originalBlob.substr(0, lastDot)}-preview.jpg`,
         )}`;
       },
     });
@@ -52,7 +52,7 @@ export const photoShare = objectType({
       type: nonNull('String'),
       resolve: (source) =>
         `/storage/tumi-photos/${encodeURIComponent(
-          source.container
+          source.container,
         )}/${encodeURIComponent(source.originalBlob)}`,
     });
   },
@@ -102,7 +102,7 @@ export const getPhotosOfEventQuery = queryField('photosOfEvent', {
     });
     if (registrations === 0 && context.assignment.role !== Role.ADMIN) {
       throw new ApolloError(
-        'You can only see photos of events your are registered for!'
+        'You can only see photos of events your are registered for!',
       );
     }
     return context.prisma.tumiEvent.findUnique({ where: { id } }).photoShares();

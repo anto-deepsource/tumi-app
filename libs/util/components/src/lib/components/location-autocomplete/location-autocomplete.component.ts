@@ -31,7 +31,7 @@ export class LocationAutocompleteComponent implements ControlValueAccessor {
   onTouch: () => void = () => {};
   constructor() {
     const subscriptionKeyCredential = new atlas.SubscriptionKeyCredential(
-      '-kk7lgvH-JWj5-0rWcj-Z9rvlBK1BsUkG5jALx1Poko'
+      '-kk7lgvH-JWj5-0rWcj-Z9rvlBK1BsUkG5jALx1Poko',
     );
     const pipeline = atlas.MapsURL.newPipeline(subscriptionKeyCredential, {
       retryOptions: { maxTries: 4 },
@@ -40,17 +40,16 @@ export class LocationAutocompleteComponent implements ControlValueAccessor {
     this.locationOptions = this.locationControl.valueChanges.pipe(
       // startWith([this.locationControl.value]),
       debounceTime(500),
-      switchMap((value) => this.loadLocationOptions(value))
+      switchMap((value) => this.loadLocationOptions(value)),
     );
   }
 
   private loadLocationOptions(value: string | atlas.Models.SearchFuzzyResult) {
-    
     if (!value || typeof value !== 'string') {
       return from([[]]);
     }
     return from(
-      this.searchClient.searchFuzzy(atlas.Aborter.timeout(10000), value)
+      this.searchClient.searchFuzzy(atlas.Aborter.timeout(10000), value),
     ).pipe(map((response) => response.results ?? []));
   }
 
