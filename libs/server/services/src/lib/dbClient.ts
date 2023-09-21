@@ -28,7 +28,7 @@ const loggingMiddleware = async (params, next) => {
   currentQueries.dec();
   if (process.env.LOG_QUERY_TIMES) {
     console.log(
-      `Query ${params.model}.${params.action} took ${after - before}ms`
+      `Query ${params.model}.${params.action} took ${after - before}ms`,
     );
   }
   return result;
@@ -53,7 +53,7 @@ const cachingMiddleware = async (params, next) => {
     } else {
       if (process.env.LOG_CACHE) {
         console.log(
-          `Cache hit for ${params.model}.${params.action}: ${cacheKey}`
+          `Cache hit for ${params.model}.${params.action}: ${cacheKey}`,
         );
       }
       cacheHits.mark();

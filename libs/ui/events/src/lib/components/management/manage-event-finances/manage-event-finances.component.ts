@@ -27,15 +27,15 @@ export class ManageEventFinancesComponent implements OnChanges {
   constructor(
     private getCostItems: GetCostItemsForEventGQL,
     private updateCostItems: UpdateCostItemsFromTemplateGQL,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
   ) {
     this.getDataQueryRef = this.getCostItems.watch();
     this.data$ = this.getDataQueryRef.valueChanges.pipe(
-      map(({ data }) => data)
+      map(({ data }) => data),
     );
   }
 
-  ngOnChanges(changes: SimpleChanges): void  {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.eventId) {
       this.getDataQueryRef.refetch({ eventId: changes.eventId.currentValue });
     }

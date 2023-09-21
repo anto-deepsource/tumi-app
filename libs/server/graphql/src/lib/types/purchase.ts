@@ -77,7 +77,7 @@ export const purchasesQuery = queryField('purchases', {
     });
     if (!limitToOwn && context.assignment?.role !== 'ADMIN') {
       throw new ApolloError(
-        'You are not allowed to view other users purchases'
+        'You are not allowed to view other users purchases',
       );
     }
     let where = {};
@@ -191,7 +191,7 @@ export const updatePurchaseStatusMutation = mutationField(
         },
       });
     },
-  }
+  },
 );
 
 export const createPurchaseFromCartMutation = mutationField(
@@ -305,5 +305,5 @@ export const createPurchaseFromCartMutation = mutationField(
         },
       });
     },
-  }
+  },
 );

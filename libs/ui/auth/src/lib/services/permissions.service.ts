@@ -14,7 +14,10 @@ import { Price } from '@tumi/shared/data-types';
   providedIn: 'root',
 })
 export class PermissionsService {
-  constructor(private auth: AuthService, private userRoles: UserRolesGQL) {}
+  constructor(
+    private auth: AuthService,
+    private userRoles: UserRolesGQL,
+  ) {}
 
   public hasStatus(allowList: MembershipStatus[]): Observable<boolean> {
     return this.auth.isAuthenticated$.pipe(
@@ -30,11 +33,11 @@ export class PermissionsService {
               return false;
             }
             return allowList.includes(
-              user.currentTenant?.status ?? MembershipStatus.None
+              user.currentTenant?.status ?? MembershipStatus.None,
             );
-          })
+          }),
         );
-      })
+      }),
     );
   }
 
@@ -52,9 +55,9 @@ export class PermissionsService {
               return false;
             }
             return allowList.includes(user.currentTenant?.role ?? Role.User);
-          })
+          }),
         );
-      })
+      }),
     );
   }
 
@@ -82,13 +85,13 @@ export class PermissionsService {
               return (
                 esnFulfilled &&
                 price.allowedStatusList.includes(
-                  user.currentTenant?.status ?? MembershipStatus.None
+                  user.currentTenant?.status ?? MembershipStatus.None,
                 )
               );
             });
-          })
+          }),
         );
-      })
+      }),
     );
   }
 }
