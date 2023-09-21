@@ -114,7 +114,7 @@ export const createEventTemplateMutation = mutationField(
         },
       });
     },
-  }
+  },
 );
 
 export const updateTemplateMutation = mutationField('updateTemplate', {
@@ -133,7 +133,7 @@ export const updateTemplateLocationMutation = mutationField(
     args: { id: nonNull(idArg()), data: nonNull(updateLocationInputType) },
     resolve: (source, { id, data }, context) =>
       context.prisma.eventTemplate.update({ where: { id }, data }),
-  }
+  },
 );
 
 export const updateTemplateFinancesMutation = mutationField(
@@ -149,7 +149,7 @@ export const updateTemplateFinancesMutation = mutationField(
         where: { id },
         data: { finances },
       }),
-  }
+  },
 );
 
 export const deleteTemplateMutation = mutationField('deleteTemplate', {

@@ -43,7 +43,7 @@ export class FinancePlannerComponent implements OnChanges {
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private updateFinances: UpdateFinancesGQL
+    private updateFinances: UpdateFinancesGQL,
   ) {
     this.forecastForm = this.fb.group({
       organizers: [0, Validators.required],
@@ -70,11 +70,11 @@ export class FinancePlannerComponent implements OnChanges {
           recommendedPrice,
           expectedFee,
         };
-      })
+      }),
     );
   }
 
-  ngOnChanges(changes: SimpleChanges): void  {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.template && changes.template.firstChange) {
       this.items$.next(changes.template.currentValue.finances.items);
     }
@@ -98,7 +98,7 @@ export class FinancePlannerComponent implements OnChanges {
         this.updateFinances.mutate({
           id: this.template.id,
           finances: { items },
-        })
+        }),
       );
       if (data?.updateTemplateFinances?.finances) {
         this.items$.next(data.updateTemplateFinances.finances.items);
@@ -109,13 +109,13 @@ export class FinancePlannerComponent implements OnChanges {
   async removeItem(element: CostItem) {
     const items = await firstValueFrom(this.items$);
     this.items$.next(
-      items.filter((item) => item.description !== element.description)
+      items.filter((item) => item.description !== element.description),
     );
   }
 
   private getTotalCost([items, info]: [
     CostItem[],
-    { participants: number; organizers: number }
+    { participants: number; organizers: number },
   ]) {
     return items
       .map((item) => {
@@ -128,7 +128,7 @@ export class FinancePlannerComponent implements OnChanges {
             return (
               item.value *
               Math.ceil(
-                (info.participants + info.organizers) / (item.scale ?? 1)
+                (info.participants + info.organizers) / (item.scale ?? 1),
               )
             );
         }

@@ -17,7 +17,7 @@ export const calendarRouter = (prisma: PrismaClient) => {
         summary: event.title,
         description: `More info at: https://tumi.esn.world/events/${event.id}`,
         url: `https://tumi.esn.world/events/${event.id}`,
-      })
+      }),
     );
     calendar.serve(res);
   });

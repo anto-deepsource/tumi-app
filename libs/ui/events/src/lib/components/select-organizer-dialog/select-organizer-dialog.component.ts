@@ -22,12 +22,12 @@ export class SelectOrganizerDialogComponent implements OnDestroy {
   public filteredChoices$: Observable<LoadUsersByStatusQuery['userWithStatus']>;
   private destroyed$ = new Subject();
   private idTest = new RegExp(
-    /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
+    /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i,
   );
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: { choices: LoadUsersByStatusQuery['userWithStatus'] },
-    private dialog: MatDialogRef<SelectOrganizerDialogComponent>
+    private dialog: MatDialogRef<SelectOrganizerDialogComponent>,
   ) {
     this.filteredChoices$ = this.nameControl.valueChanges.pipe(
       startWith(''),
@@ -41,18 +41,20 @@ export class SelectOrganizerDialogComponent implements OnDestroy {
           return this.data.choices;
         }
         return this.data.choices.filter((user) =>
-          user.fullName.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+          user.fullName
+            .toLocaleLowerCase()
+            .includes(search.toLocaleLowerCase()),
         );
-      })
+      }),
     );
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.destroyed$.next(true);
     this.destroyed$.complete();
   }
 
-  selectUser(ev: MatAutocompleteSelectedEvent): void  {
+  selectUser(ev: MatAutocompleteSelectedEvent): void {
     this.dialog.close(ev.option.value);
   }
 }
