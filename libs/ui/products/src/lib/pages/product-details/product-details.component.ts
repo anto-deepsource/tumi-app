@@ -21,20 +21,20 @@ export class ProductDetailsComponent implements OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private loadProductGQL: LoadProductGQL,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.loadProductRef = this.loadProductGQL.watch();
     this.product$ = this.loadProductRef.valueChanges.pipe(
-      map(({ data }) => data.product)
+      map(({ data }) => data.product),
     );
     this.user$ = this.loadProductRef.valueChanges.pipe(
-      map(({ data }) => data.currentUser)
+      map(({ data }) => data.currentUser),
     );
     this.route.paramMap.pipe(takeUntil(this.destroyed$)).subscribe((params) => {
       this.loadProductRef.refetch({ id: params.get('productId') ?? '' });
     });
   }
-  openPhoto(photo: unknown): void  {
+  openPhoto(photo: unknown): void {
     this.dialog.open(PhotoDetailsDialogComponent, {
       data: { photo },
       maxHeight: '95vh',
@@ -42,7 +42,7 @@ export class ProductDetailsComponent implements OnDestroy {
       panelClass: 'photo-view',
     });
   }
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.destroyed$.next(true);
     this.destroyed$.complete();
   }

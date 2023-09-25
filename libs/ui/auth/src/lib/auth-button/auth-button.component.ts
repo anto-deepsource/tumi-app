@@ -15,7 +15,7 @@ export class AuthButtonComponent {
     @Inject(DOCUMENT) public document: Document,
     public auth: AuthService,
     router: Router,
-    getUser: GetCurrentUserGQL
+    getUser: GetCurrentUserGQL,
   ) {
     auth.isAuthenticated$.pipe(filter((auth) => auth)).subscribe(() => {
       getUser.fetch().subscribe((user) => {

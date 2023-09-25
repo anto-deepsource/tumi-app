@@ -6,7 +6,7 @@ export class ValidationService {
   public static async priceAllowed(
     price: Price,
     event: TumiEvent,
-    context: GetGen<'context'>
+    context: GetGen<'context'>,
   ): Promise<boolean> {
     if (price.defaultPrice) {
       return true;
@@ -15,7 +15,7 @@ export class ValidationService {
     let cardAllowed;
     if (price.allowedStatusList) {
       statusAllowed = price.allowedStatusList.includes(
-        context.assignment.status
+        context.assignment.status,
       );
     } else {
       statusAllowed = true;

@@ -15,7 +15,7 @@ export class UpdateProfileDialogComponent {
     private fb: FormBuilder,
     private dialog: MatDialogRef<UpdateProfileDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { profile: UserProfileQuery['currentUser'] }
+    public data: { profile: UserProfileQuery['currentUser'] },
   ) {
     this.profileForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -26,7 +26,7 @@ export class UpdateProfileDialogComponent {
     this.profileForm.patchValue({ ...this.data.profile });
   }
 
-  submit(): void  {
+  submit(): void {
     if (this.profileForm.valid) {
       this.dialog.close({
         ...this.profileForm.value,

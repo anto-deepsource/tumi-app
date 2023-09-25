@@ -36,7 +36,7 @@ export const getEventTemplateCategoryListQuery = queryField(
         where: { tenantId: context.tenant.id },
       });
     },
-  }
+  },
 );
 
 export const getEventTemplateCategoryQuery = queryField('templateCategory', {
