@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 export class CheckUserGuard implements CanActivate, CanLoad {
   constructor(
     private router: Router,
-    private getCurrentUser: GetCurrentUserGQL
+    private getCurrentUser: GetCurrentUserGQL,
   ) {}
   private redirectWithoutUser(): Observable<UrlTree | boolean> {
     return this.getCurrentUser.fetch().pipe(
@@ -20,7 +20,7 @@ export class CheckUserGuard implements CanActivate, CanLoad {
         } else {
           return this.router.parseUrl('/profile/new');
         }
-      })
+      }),
     );
   }
 

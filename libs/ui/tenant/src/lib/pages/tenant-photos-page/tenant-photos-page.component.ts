@@ -19,17 +19,17 @@ export class TenantPhotosPageComponent implements OnDestroy {
   constructor(
     private title: Title,
     private loadPhotosQuery: LoadAllPhotosGQL,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.title.setTitle('TUMi - all photos');
     this.photosQueryRef = this.loadPhotosQuery.watch();
     this.photos$ = this.photosQueryRef.valueChanges.pipe(
-      map(({ data }) => data.photos)
+      map(({ data }) => data.photos),
     );
     this.photosQueryRef.startPolling(5000);
   }
 
-  openPhoto(photo: unknown): void  {
+  openPhoto(photo: unknown): void {
     this.dialog.open(PhotoDetailsDialogComponent, {
       data: { photo },
       maxHeight: '95vh',
@@ -38,7 +38,7 @@ export class TenantPhotosPageComponent implements OnDestroy {
     });
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.photosQueryRef.stopPolling();
   }
 }

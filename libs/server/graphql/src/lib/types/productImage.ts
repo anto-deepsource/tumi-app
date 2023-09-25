@@ -38,9 +38,9 @@ export const productImageType = objectType({
       resolve: (source) => {
         const lastDot = source.originalBlob.lastIndexOf('.');
         return `/storage/tumi-products/${encodeURIComponent(
-          source.container
+          source.container,
         )}/${encodeURIComponent(
-          `${source.originalBlob.substr(0, lastDot)}-preview.jpg`
+          `${source.originalBlob.substr(0, lastDot)}-preview.jpg`,
         )}`;
       },
     });
@@ -49,7 +49,7 @@ export const productImageType = objectType({
       type: nonNull('String'),
       resolve: (source) =>
         `/storage/tumi-products/${encodeURIComponent(
-          source.container
+          source.container,
         )}/${encodeURIComponent(source.originalBlob)}`,
     });
   },

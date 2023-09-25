@@ -86,7 +86,7 @@ export const getPaymentSetupSessionQuery = queryField(
       });
       return session;
     },
-  }
+  },
 );
 
 // export const deregisterUserWithRefundMutation = mutationField(

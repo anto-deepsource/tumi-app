@@ -28,17 +28,17 @@ export class TenantMoveOrdersPageComponent implements OnDestroy {
   private ordersQueryRef;
   constructor(
     private title: Title,
-    private getEventRegistrationCodesGQL: GetEventRegistrationCodesGQL
+    private getEventRegistrationCodesGQL: GetEventRegistrationCodesGQL,
   ) {
     this.title.setTitle('TUMi - manage registrations');
     this.ordersQueryRef = this.getEventRegistrationCodesGQL.watch();
     this.ordersQueryRef.startPolling(5000);
     this.codes$ = this.ordersQueryRef.valueChanges.pipe(
-      map(({ data }) => data.eventRegistrationCodes)
+      map(({ data }) => data.eventRegistrationCodes),
     );
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.ordersQueryRef.stopPolling();
   }
 }

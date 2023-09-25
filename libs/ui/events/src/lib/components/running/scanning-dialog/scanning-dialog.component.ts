@@ -74,23 +74,22 @@ export class ScanningDialogComponent implements AfterViewInit, OnDestroy {
     private loadRegistration: GetRegistrationGQL,
     private checkInMutation: CheckInUserGQL,
     private verifyCertificateGQL: VerifyCertificateGQL,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {
     this.loadEventQueryRef = this.loadEvent.watch({ id: this.data.id });
     this.event$ = this.loadEventQueryRef.valueChanges.pipe(
-      map(({ data }) => data.event)
+      map(({ data }) => data.event),
     );
     this.loadEventQueryRef.startPolling(5000);
   }
 
   async ngAfterViewInit() {
     const idTest = new RegExp(
-      /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
+      /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i,
     );
     QrScanner.WORKER_PATH = 'assets/qr-scanner-worker.min.js';
     if (this.video?.nativeElement) {
       this.scanner = new QrScanner(this.video?.nativeElement, (result) => {
-        
         const isID = idTest.test(result);
         if (result.includes('HC1')) {
           // DCC.unpackAndVerify(result);
@@ -102,7 +101,7 @@ export class ScanningDialogComponent implements AfterViewInit, OnDestroy {
               next: ({ data }) => {
                 if (data) {
                   this.snackBar.open(
-                    `Certificate scanned: ${data.verifyDCC.status}`
+                    `Certificate scanned: ${data.verifyDCC.status}`,
                   );
                   this.certificatePayload$.next(data.verifyDCC.payload);
                   this.hideScanner$.next(true);
@@ -111,7 +110,6 @@ export class ScanningDialogComponent implements AfterViewInit, OnDestroy {
                 }
               },
               error: (err) => {
-                
                 this.snackBar.open('Error processing certificate');
               },
             });
@@ -122,14 +120,12 @@ export class ScanningDialogComponent implements AfterViewInit, OnDestroy {
           this.loadRegistration
             .fetch({ id: result })
             .subscribe(({ data }) =>
-              this.currentRegistration$.next(data.registration)
+              this.currentRegistration$.next(data.registration),
             );
         }
       });
       await this.scanner.setCamera('environment');
     } else {
-      
-      
     }
     this.scanner?.start();
     const cameras = await QrScanner.listCameras(true);
