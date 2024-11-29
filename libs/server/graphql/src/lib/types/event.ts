@@ -254,7 +254,7 @@ export const eventType = objectType({
             _sum: { amount: true },
           })
           .then(
-            (aggregations) => (aggregations._sum.amount?.toNumber() ?? 0) / 100
+            (aggregations) => (aggregations._sum.amount?.toNumber() ?? 0) / 100,
           );
       },
     });
@@ -276,7 +276,7 @@ export const eventType = objectType({
           })
           .then(
             (aggregations) =>
-              (aggregations._sum.netAmount?.toNumber() ?? 0) / 100
+              (aggregations._sum.netAmount?.toNumber() ?? 0) / 100,
           );
       },
     });
@@ -298,7 +298,7 @@ export const eventType = objectType({
           })
           .then(
             (aggregations) =>
-              (aggregations._sum.feeAmount?.toNumber() ?? 0) / 100
+              (aggregations._sum.feeAmount?.toNumber() ?? 0) / 100,
           );
       },
     });
@@ -401,7 +401,7 @@ export const eventType = objectType({
         if (!context.user) {
           if (process.env.DEV) {
             console.info(
-              'Organizer signup not possible because of missing user'
+              'Organizer signup not possible because of missing user',
             );
           }
           return false;
@@ -411,7 +411,7 @@ export const eventType = objectType({
           if (process.env.DEV) {
             console.info(
               'Organizer signup not possible because of missing status ' +
-                status
+                status,
             );
           }
           return false;
@@ -427,7 +427,7 @@ export const eventType = objectType({
         if (!context.user) {
           if (process.env.DEV) {
             console.info(
-              'Participant signup not possible because of missing user'
+              'Participant signup not possible because of missing user',
             );
           }
           return false;
@@ -437,7 +437,7 @@ export const eventType = objectType({
           if (process.env.DEV) {
             console.info(
               'Participant signup not possible because of missing status ' +
-                status
+                status,
             );
           }
           return false;
@@ -489,7 +489,7 @@ export const eventType = objectType({
         if (!root.participantSignup.includes(status)) {
           if (process.env.DEV) {
             console.info(
-              `Can't register participant because status is not allowed ${status}`
+              `Can't register participant because status is not allowed ${status}`,
             );
           }
           return {
@@ -508,7 +508,7 @@ export const eventType = objectType({
         if (previousRegistration) {
           if (process.env.DEV) {
             console.info(
-              `Can't register participant because there is a registration already`
+              `Can't register participant because there is a registration already`,
             );
           }
           return {
@@ -546,7 +546,7 @@ export const eventType = objectType({
         ) {
           if (process.env.DEV) {
             console.info(
-              `Can't register participant because there are too many registrations ${registrationsOfUser}`
+              `Can't register participant because there are too many registrations ${registrationsOfUser}`,
             );
           }
           return {
@@ -565,7 +565,7 @@ export const eventType = objectType({
         if (currentRegistrationNum >= root.participantLimit) {
           if (process.env.DEV) {
             console.info(
-              `Can't register because to many people are on event ${currentRegistrationNum} >= ${root.participantLimit}`
+              `Can't register because to many people are on event ${currentRegistrationNum} >= ${root.participantLimit}`,
             );
           }
           return {
@@ -597,7 +597,7 @@ export const eventType = objectType({
         if (!context.user) {
           if (process.env.DEV) {
             console.info(
-              'Organizer signup not possible because of missing user'
+              'Organizer signup not possible because of missing user',
             );
           }
           return false;
@@ -607,7 +607,7 @@ export const eventType = objectType({
           if (process.env.DEV) {
             console.info(
               'Organizer signup not possible because of missing status ' +
-                status
+                status,
             );
           }
           return false;
@@ -623,7 +623,7 @@ export const eventType = objectType({
         if (previousRegistration) {
           if (process.env.DEV) {
             console.info(
-              'Organizer signup not possible because of already registered'
+              'Organizer signup not possible because of already registered',
             );
             console.info(previousRegistration);
           }
@@ -691,7 +691,7 @@ export const updateCostItemsFromTemplateMutation = mutationField(
                 amount =
                   item.value * Math.ceil(allParticipants / (item.scale ?? 1));
                 calculationInfo = `${Math.ceil(
-                  allParticipants / (item.scale ?? 1)
+                  allParticipants / (item.scale ?? 1),
                 )} x ${item.value}€ per ${item.scale ?? 1} participants`;
             }
             return {
@@ -706,7 +706,7 @@ export const updateCostItemsFromTemplateMutation = mutationField(
         });
         return event;
       }),
-  }
+  },
 );
 
 export const createEventFromTemplateInput = inputObjectType({
@@ -761,7 +761,7 @@ export const getAllEventsQuery = queryField('events', {
     source,
     { after, userId, limit },
     context,
-    { cacheControl }
+    { cacheControl },
   ) => {
     cacheControl.setCacheHint({ scope: CacheScope.Private, maxAge: 10 });
     let where: TumiEventWhereInput;
@@ -833,12 +833,12 @@ export const updateEventLocationMutation = mutationField(
       const { role } = context.assignment;
       if (role !== Role.ADMIN && context.user.id !== event.creatorId) {
         throw new ApolloError(
-          'Only Admins can change events they did not create'
+          'Only Admins can change events they did not create',
         );
       }
       return context.prisma.tumiEvent.update({ where: { id }, data });
     },
-  }
+  },
 );
 
 export const addOrganizerMutation = mutationField('addOrganizerToEvent', {
@@ -855,7 +855,7 @@ export const addOrganizerMutation = mutationField('addOrganizerToEvent', {
     const { role } = context.assignment;
     if (role !== Role.ADMIN && context.user.id !== event.creatorId) {
       throw new ApolloError(
-        'Only Admins can change events they did not create'
+        'Only Admins can change events they did not create',
       );
     }
     return context.prisma.tumiEvent.update({
@@ -899,7 +899,7 @@ export const changePublicationMutation = mutationField(
       }
       if (role !== Role.ADMIN && context.user.id !== event.creatorId) {
         throw new ApolloError(
-          'Only Admins can change events they did not create'
+          'Only Admins can change events they did not create',
         );
       }
       return context.prisma.tumiEvent.update({
@@ -907,7 +907,7 @@ export const changePublicationMutation = mutationField(
         data: { publicationState: state },
       });
     },
-  }
+  },
 );
 
 export const deregisterFromEventMutation = mutationField(
@@ -960,10 +960,10 @@ export const deregisterFromEventMutation = mutationField(
         registrationId,
         withRefund,
         isKick,
-        context
+        context,
       );
     },
-  }
+  },
 );
 
 export const registerForEvent = mutationField('registerForEvent', {
@@ -980,7 +980,7 @@ export const registerForEvent = mutationField('registerForEvent', {
   resolve: async (
     source,
     { registrationType, eventId, submissions, price },
-    context
+    context,
   ) => {
     const event = await context.prisma.tumiEvent.findUnique({
       where: { id: eventId },
@@ -992,7 +992,7 @@ export const registerForEvent = mutationField('registerForEvent', {
         : event.organizerSignup;
     if (!allowedStatus.includes(status)) {
       throw new ApolloError(
-        'User does not fulfill the requirements to sign up!'
+        'User does not fulfill the requirements to sign up!',
       );
     }
     let registration;
@@ -1089,7 +1089,7 @@ export const registerForEvent = mutationField('registerForEvent', {
           'book',
           `${baseUrl}?cancel=true`,
           `${baseUrl}?success=true`,
-          context.user.id
+          context.user.id,
         );
         await context.prisma.eventRegistration.update({
           where: {
@@ -1131,7 +1131,7 @@ export const updateGeneralEventMutation = mutationField(
       const { role } = context.assignment;
       if (role !== Role.ADMIN && event.creatorId !== context.user.id) {
         throw new ApolloError(
-          'Only Admins can update events that are not their own'
+          'Only Admins can update events that are not their own',
         );
       }
       return context.prisma.tumiEvent.update({
@@ -1141,7 +1141,7 @@ export const updateGeneralEventMutation = mutationField(
         data,
       });
     },
-  }
+  },
 );
 export const updateCoreEventMutation = mutationField('updateEventCoreInfo', {
   type: nonNull(eventType),
@@ -1154,7 +1154,7 @@ export const updateCoreEventMutation = mutationField('updateEventCoreInfo', {
     const { role } = context.assignment;
     if (role !== Role.ADMIN && event.creatorId !== context.user.id) {
       throw new ApolloError(
-        'Only Admins can update events that are not their own'
+        'Only Admins can update events that are not their own',
       );
     }
     if (
@@ -1184,14 +1184,14 @@ export const createFromTemplateMutation = mutationField(
     resolve: async (
       source,
       { templateId, createEventFromTemplateInput },
-      context
+      context,
     ) => {
       const template = await context.prisma.eventTemplate.findUnique({
         where: { id: templateId },
       });
       if (!template) {
         throw new UserInputError(
-          'Template with the given ID could not be found'
+          'Template with the given ID could not be found',
         );
       }
       return context.prisma.tumiEvent.create({
@@ -1252,5 +1252,5 @@ export const createFromTemplateMutation = mutationField(
         },
       });
     },
-  }
+  },
 );

@@ -13,15 +13,17 @@ import { map } from 'rxjs/operators';
 export class ShowPagePageComponent {
   public pageContent$: Observable<string>;
 
-  constructor(private route: ActivatedRoute, private loadPages: LoadPagesGQL) {
+  constructor(
+    private route: ActivatedRoute,
+    private loadPages: LoadPagesGQL,
+  ) {
     this.pageContent$ = combineLatest([
       this.route.paramMap,
       this.loadPages.fetch(),
     ]).pipe(
       map(([params, res]) => {
         const page = params.get('page');
-        
-        
+
         if (!page || !res.data.currentTenant) {
           return `## Page not found`;
         }
@@ -46,7 +48,7 @@ export class ShowPagePageComponent {
             return `## Page not found`;
           }
         }
-      })
+      }),
     );
   }
 }

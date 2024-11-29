@@ -52,8 +52,8 @@ export const verifyDCCMutation = mutationField('verifyDCC', {
           result: testCWT.tr === '260373001' ? 'Positive' : 'Negative',
           hours: Math.abs(
             Math.round(
-              DateTime.fromISO(testCWT.sc).diffNow('hours').toObject().hours
-            )
+              DateTime.fromISO(testCWT.sc).diffNow('hours').toObject().hours,
+            ),
           ),
           date: new Date(testCWT.sc),
           relativeDate: DateTime.fromISO(testCWT.sc).toRelative(),

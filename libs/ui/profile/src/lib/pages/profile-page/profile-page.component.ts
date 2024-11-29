@@ -35,13 +35,13 @@ export class ProfilePageComponent implements OnDestroy {
     private updateProfileMutation: UpdateProfileGQL,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {
     this.title.setTitle('TUMi - profile');
     this.profileQueryRef = this.profileQuery.watch();
     this.profileQueryRef.startPolling(5000);
     this.profile$ = this.profileQueryRef.valueChanges.pipe(
-      map(({ data }) => data.currentUser)
+      map(({ data }) => data.currentUser),
     );
     this.route.queryParamMap.pipe(first()).subscribe((queryMap) => {
       const status = queryMap.get('stripe');
@@ -57,7 +57,7 @@ export class ProfilePageComponent implements OnDestroy {
       }
     });
   }
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.profileQueryRef.stopPolling();
   }
 
@@ -82,7 +82,7 @@ export class ProfilePageComponent implements OnDestroy {
     }
   }
 
-  claimEvent(code?: string): void  {
+  claimEvent(code?: string): void {
     this.dialog.open(ClaimEventDialogComponent, { data: { code } });
   }
 }

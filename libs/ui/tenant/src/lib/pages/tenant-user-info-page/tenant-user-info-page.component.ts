@@ -26,15 +26,15 @@ export class TenantUserInfoPageComponent {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private updateMutation: UpdateUserGQL,
-    private updateCardMutation: UpdateEsNcardGQL
+    private updateCardMutation: UpdateEsNcardGQL,
   ) {
     this.user$ = this.route.paramMap.pipe(
       switchMap(
         (params) =>
           this.loadUserQuery.watch({ id: params.get('userId') ?? '' })
-            .valueChanges
+            .valueChanges,
       ),
-      map(({ data }) => data.userById)
+      map(({ data }) => data.userById),
     );
   }
 
