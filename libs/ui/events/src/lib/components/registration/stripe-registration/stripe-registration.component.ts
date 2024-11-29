@@ -49,7 +49,7 @@ export class StripeRegistrationComponent implements OnChanges {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private permissions: PermissionsService
+    private permissions: PermissionsService,
   ) {}
 
   get lastDeregistration() {
@@ -86,8 +86,8 @@ export class StripeRegistrationComponent implements OnChanges {
     if (changes.event) {
       const prices = await firstValueFrom(
         this.permissions.getPricesForUser(
-          changes.event.currentValue.prices.options
-        )
+          changes.event.currentValue.prices.options,
+        ),
       );
       const defaultPrice = prices.find((p) => p.defaultPrice);
       if (defaultPrice) {
@@ -99,7 +99,7 @@ export class StripeRegistrationComponent implements OnChanges {
 
   async register() {
     this.processing.next(true);
-    
+
     if (this.event) {
       let data;
       try {
@@ -108,12 +108,12 @@ export class StripeRegistrationComponent implements OnChanges {
             eventId: this.event.id,
             price: this.priceControl.value,
             submissions: this.infoCollected$.value,
-          })
+          }),
         );
         data = res.data;
-        
+
         this.openPaymentSession(
-          data?.registerForEvent.activeRegistration?.payment?.checkoutSession
+          data?.registerForEvent.activeRegistration?.payment?.checkoutSession,
         );
       } catch (e: unknown) {
         this.processing.next(false);
@@ -134,7 +134,7 @@ export class StripeRegistrationComponent implements OnChanges {
       await firstValueFrom(
         this.deregisterFromEventGQL.mutate({
           registrationId: this.event?.activeRegistration?.id ?? '',
-        })
+        }),
       );
     } catch (e: unknown) {
       this.processing.next(false);
@@ -147,11 +147,11 @@ export class StripeRegistrationComponent implements OnChanges {
     this.processing.next(false);
   }
 
-  moveEvent(): void  {
+  moveEvent(): void {
     this.dialog.open(MoveEventDialogComponent, { data: { event: this.event } });
   }
 
-  registerAdditionalData($event: unknown): void  {
+  registerAdditionalData($event: unknown): void {
     this.infoCollected$.next($event);
   }
 

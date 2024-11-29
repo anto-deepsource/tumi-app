@@ -31,20 +31,20 @@ export class EventRunReceiptsPageComponent implements OnDestroy {
     private loadCostItem: GetCostItemGQL,
     private removeReceiptMutation: DeleteReceiptGQL,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.title.setTitle('TUMi - event receipts');
     this.loadCostItemQueryRef = this.loadCostItem.watch();
     this.route.paramMap.subscribe((params) =>
-      this.loadCostItemQueryRef.refetch({ id: params.get('costItemId') ?? '' })
+      this.loadCostItemQueryRef.refetch({ id: params.get('costItemId') ?? '' }),
     );
     this.costItem$ = this.loadCostItemQueryRef.valueChanges.pipe(
-      map(({ data }) => data.costItem)
+      map(({ data }) => data.costItem),
     );
     this.loadCostItemQueryRef.startPolling(5000);
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     // this.destroyed$.next(true);
     // this.destroyed$.complete();
     this.loadCostItemQueryRef.stopPolling();

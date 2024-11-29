@@ -14,16 +14,16 @@ export class TenantPurchaseDetailsPageComponent {
   public purchase$: Observable<GetPurchaseQuery['purchase']>;
   constructor(
     private getPurchaseGQL: GetPurchaseGQL,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.purchase$ = this.route.paramMap.pipe(
       switchMap(
         (params) =>
           this.getPurchaseGQL.watch({
             id: params.get('purchaseId') ?? '',
-          }).valueChanges
+          }).valueChanges,
       ),
-      map(({ data }) => data.purchase)
+      map(({ data }) => data.purchase),
     );
   }
 }
