@@ -32,12 +32,12 @@ export class OrderProductComponent implements OnChanges {
     private permissions: PermissionsService,
     private snackBar: MatSnackBar,
     private addProductToCartGQL: AddProductToCartGQL,
-    private router: Router
+    private router: Router,
   ) {
     this.additionalData$.next(null);
   }
 
-  saveData($event: unknown): void  {
+  saveData($event: unknown): void {
     this.additionalData$.next($event);
   }
 
@@ -45,8 +45,8 @@ export class OrderProductComponent implements OnChanges {
     if (changes.product) {
       const prices = await firstValueFrom(
         this.permissions.getPricesForUser(
-          changes.product.currentValue.prices.options
-        )
+          changes.product.currentValue.prices.options,
+        ),
       );
       const lowestPrice = Math.min(...prices.map((p) => p.amount));
       const selectedPrice = prices.find((p) => lowestPrice === p.amount);
@@ -70,7 +70,7 @@ export class OrderProductComponent implements OnChanges {
               quantity: this.quantityControl.value,
               submissions,
             },
-          })
+          }),
         );
         this.ordered$.next(true);
         this.snackBar

@@ -19,7 +19,7 @@ export class IconToastComponent {
       message: string;
       allowClose?: boolean;
     },
-    private snackbarRef: MatSnackBarRef<IconToastComponent>
+    private snackbarRef: MatSnackBarRef<IconToastComponent>,
   ) {}
 
   dismiss(): void {

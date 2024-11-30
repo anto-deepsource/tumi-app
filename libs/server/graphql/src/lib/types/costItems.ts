@@ -93,7 +93,7 @@ export const addReceiptToCostItemMutation = mutationField(
           },
         },
       }),
-  }
+  },
 );
 
 export const deleteReceiptMutation = mutationField('deleteReceipt', {
@@ -106,7 +106,7 @@ export const deleteReceiptMutation = mutationField('deleteReceipt', {
     });
     if (role !== Role.ADMIN && receipt.userId !== context.user.id) {
       throw new ApolloError(
-        'Only Admins can delete receipts not added by them.'
+        'Only Admins can delete receipts not added by them.',
       );
     }
     return context.prisma.costItem.update({
