@@ -23,12 +23,12 @@ export class TenantOrganizersPageComponent implements OnInit {
     private title: Title,
     private dialog: MatDialog,
     private getOrganizers: GetOrganizersGQL,
-    private createOrganizer: CreateOrganizerGQL
+    private createOrganizer: CreateOrganizerGQL,
   ) {
     this.title.setTitle('TUMi - manage organizers');
     this.organizersQuery = this.getOrganizers.watch();
     this.organizers$ = this.organizersQuery.valueChanges.pipe(
-      map(({ data }) => data.organizers)
+      map(({ data }) => data.organizers),
     );
   }
 

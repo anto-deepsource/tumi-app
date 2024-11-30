@@ -19,17 +19,17 @@ export class TenantRefundsPageComponent implements OnDestroy {
   private refundsQueryRef;
   constructor(
     private title: Title,
-    private cancelledRegistrationsGQL: GetCancelledRegistrationsGQL
+    private cancelledRegistrationsGQL: GetCancelledRegistrationsGQL,
   ) {
     this.title.setTitle('TUMi - manage registrations');
     this.refundsQueryRef = this.cancelledRegistrationsGQL.watch();
     this.refundsQueryRef.startPolling(5000);
     this.refunds$ = this.refundsQueryRef.valueChanges.pipe(
-      map(({ data }) => data.registrations)
+      map(({ data }) => data.registrations),
     );
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.refundsQueryRef.stopPolling();
   }
 }

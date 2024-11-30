@@ -80,8 +80,8 @@ export const eventSubmissionItemType = objectType({
             toPairs(
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              countBy(submissions.map((submission) => submission.data.value))
-            ).map(([value, count]) => ({ value, count }))
+              countBy(submissions.map((submission) => submission.data.value)),
+            ).map(([value, count]) => ({ value, count })),
           );
       },
     });
@@ -118,7 +118,7 @@ export const createSubmissionItemMutation = mutationField(
           const { role } = context.assignment;
           if (role !== Role.ADMIN && event.creatorId !== context.user.id) {
             throw new ApolloError(
-              'Only Admins can update events that they did not create'
+              'Only Admins can update events that they did not create',
             );
           }
           return context.prisma.eventSubmissionItem.create({
@@ -144,7 +144,7 @@ export const createSubmissionItemMutation = mutationField(
           throw new ApolloError('Invalid target');
       }
     },
-  }
+  },
 );
 
 export const removeSubmissionItemMutation = mutationField(
@@ -163,7 +163,7 @@ export const removeSubmissionItemMutation = mutationField(
         where: { id },
       });
     },
-  }
+  },
 );
 
 export const createSubmissionItemOnEventMutation = mutationField(
@@ -181,7 +181,7 @@ export const createSubmissionItemOnEventMutation = mutationField(
       const { role } = context.assignment;
       if (role !== Role.ADMIN && event.creatorId !== context.user.id) {
         throw new ApolloError(
-          'Only Admins can update events that they did not create'
+          'Only Admins can update events that they did not create',
         );
       }
       return context.prisma.tumiEvent.update({
@@ -189,5 +189,5 @@ export const createSubmissionItemOnEventMutation = mutationField(
         data: { submissionItems: { create: data } },
       });
     },
-  }
+  },
 );

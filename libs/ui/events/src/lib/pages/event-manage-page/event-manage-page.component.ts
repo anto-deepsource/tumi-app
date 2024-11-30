@@ -30,20 +30,20 @@ export class EventManagePageComponent implements OnDestroy {
     private deregisterFromEventGQL: DeregisterFromEventGQL,
     private checkInMutation: CheckInUserGQL,
     private createEventRegistrationCodeGQL: CreateEventRegistrationCodeGQL,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.title.setTitle('TUMi - manage event');
     this.loadEventQueryRef = this.loadEvent.watch();
     this.route.paramMap.subscribe((params) =>
-      this.loadEventQueryRef.refetch({ id: params.get('eventId') ?? '' })
+      this.loadEventQueryRef.refetch({ id: params.get('eventId') ?? '' }),
     );
     this.event$ = this.loadEventQueryRef.valueChanges.pipe(
-      map(({ data }) => data.event)
+      map(({ data }) => data.event),
     );
     // this.loadEventQueryRef.startPolling(5000);
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.destroyed$.next(true);
     this.destroyed$.complete();
     this.loadEventQueryRef.stopPolling();
@@ -58,7 +58,7 @@ export class EventManagePageComponent implements OnDestroy {
           this.deregisterFromEventGQL.mutate({
             withRefund: true,
             registrationId,
-          })
+          }),
         );
         //     await this.removeUserWithRefund
         //       .mutate({ eventId: event.id, userId })
@@ -75,7 +75,7 @@ export class EventManagePageComponent implements OnDestroy {
   async kick(registrationId: string) {
     const event = await firstValueFrom(this.event$);
     const proceed = confirm(
-      'Are you sure you want to remove this user without refund?'
+      'Are you sure you want to remove this user without refund?',
     );
     if (event && proceed) {
       try {
@@ -83,7 +83,7 @@ export class EventManagePageComponent implements OnDestroy {
           this.deregisterFromEventGQL.mutate({
             withRefund: false,
             registrationId,
-          })
+          }),
         );
         //     await this.removeUser.mutate({ registrationId }).toPromise();
       } catch (e) {
@@ -100,7 +100,7 @@ export class EventManagePageComponent implements OnDestroy {
   }
 
   getTable(
-    participantRegistrations: LoadEventForManagementQuery['event']['participantRegistrations']
+    participantRegistrations: LoadEventForManagementQuery['event']['participantRegistrations'],
   ) {
     return participantRegistrations
       .filter((r) => !r.checkInTime && r.submissions.length)
@@ -114,15 +114,15 @@ export class EventManagePageComponent implements OnDestroy {
   }
 
   filterRegistrations(
-    participantRegistrations: LoadEventForManagementQuery['event']['participantRegistrations']
+    participantRegistrations: LoadEventForManagementQuery['event']['participantRegistrations'],
   ) {
     return participantRegistrations.filter(
-      (r) => r.status !== RegistrationStatus.Cancelled
+      (r) => r.status !== RegistrationStatus.Cancelled,
     );
   }
 
   joinOrganizers(
-    organizerRegistrations: LoadEventForManagementQuery['event']['organizerRegistrations']
+    organizerRegistrations: LoadEventForManagementQuery['event']['organizerRegistrations'],
   ) {
     return organizerRegistrations.map((r) => r.user.fullName).join(', ');
   }
@@ -134,7 +134,7 @@ export class EventManagePageComponent implements OnDestroy {
         eventId: event.id,
         isPublic: false,
         sepaAllowed,
-      })
+      }),
     );
     this.loadEventQueryRef.refetch();
   }
