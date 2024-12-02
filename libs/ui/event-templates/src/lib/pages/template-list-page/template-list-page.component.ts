@@ -28,15 +28,15 @@ export class TemplateListPageComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private createTemplateMutation: CreateEventTemplateGQL,
-    private loadTemplates: GetEventTemplatesGQL
+    private loadTemplates: GetEventTemplatesGQL,
   ) {
     this.title.setTitle('TUMi - Event templates');
     this.eventTemplateQuery = this.loadTemplates.watch(
       {},
-      { fetchPolicy: 'cache-and-network' }
+      { fetchPolicy: 'cache-and-network' },
     );
     this.eventTemplates$ = this.eventTemplateQuery.valueChanges.pipe(
-      map(({ data }) => data.eventTemplates)
+      map(({ data }) => data.eventTemplates),
     );
   }
 

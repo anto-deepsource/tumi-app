@@ -33,11 +33,11 @@ export class OrdersPageComponent {
     private updateAddressGQL: UpdateAddressGQL,
     private updatePurchaseStatusGQL: UpdatePurchaseStatusGQL,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.loadOrdersRef = this.loadOrderInfoGQL.watch();
     this.products$ = this.loadOrdersRef.valueChanges.pipe(
-      map(({ data }) => data.products)
+      map(({ data }) => data.products),
     );
     this.users$ = combineLatest([
       this.loadOrdersRef.valueChanges.pipe(map(({ data }) => data.users)),
@@ -51,27 +51,27 @@ export class OrdersPageComponent {
             user.purchases.some(
               (purchase) =>
                 ![PurchaseStatus.Cancelled, PurchaseStatus.Sent].includes(
-                  purchase.status
-                )
-            )
+                  purchase.status,
+                ),
+            ),
           );
         } else if (filter) {
           returnedUsers = returnedUsers.filter((user) =>
-            user.purchases.some((purchase) => purchase.status === filter)
+            user.purchases.some((purchase) => purchase.status === filter),
           );
         }
         if (nameSearch) {
           returnedUsers = returnedUsers.filter((user) =>
             user.fullName
               .toLocaleLowerCase()
-              .includes(nameSearch.toLocaleLowerCase())
+              .includes(nameSearch.toLocaleLowerCase()),
           );
         }
         return returnedUsers;
-      })
+      }),
     );
     this.lmu$ = this.loadOrdersRef.valueChanges.pipe(
-      map(({ data }) => data.lmuPurchases)
+      map(({ data }) => data.lmuPurchases),
     );
   }
 
@@ -91,7 +91,10 @@ export class OrdersPageComponent {
   async markShipped(id: string) {
     try {
       await firstValueFrom(
-        this.updatePurchaseStatusGQL.mutate({ id, status: PurchaseStatus.Sent })
+        this.updatePurchaseStatusGQL.mutate({
+          id,
+          status: PurchaseStatus.Sent,
+        }),
       );
     } catch (e) {
       console.error(e);

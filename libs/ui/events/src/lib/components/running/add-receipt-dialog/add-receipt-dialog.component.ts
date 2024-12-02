@@ -26,7 +26,7 @@ export class AddReceiptDialogComponent {
     private getBlobTokenGQL: GetBlobTokenGQL,
     private addReceiptGQL: AddReceiptGQL,
     private dialog: MatDialogRef<AddReceiptDialogComponent>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {
     this.uploadForm = this.fb.group({
       file: [null, Validators.required],
@@ -35,7 +35,7 @@ export class AddReceiptDialogComponent {
   }
 
   // Image Preview
-  showPreview(event: Event): void  {
+  showPreview(event: Event): void {
     const target = event.target as HTMLInputElement;
     if (target && target.files) {
       const file = target.files[0];
@@ -71,7 +71,7 @@ export class AddReceiptDialogComponent {
         {
           onProgress: (event) =>
             this.uploadProgress$.next((event.loadedBytes / file.size) * 100),
-        }
+        },
       );
       await this.addReceiptGQL
         .mutate({

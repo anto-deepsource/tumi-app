@@ -22,7 +22,7 @@ export class UiAuth0 {
           grant_type: 'client_credentials',
         },
         responseType: 'json',
-      }
+      },
     );
     this.token = body.access_token;
   }

@@ -28,13 +28,13 @@ export class NavigationComponent {
     .observe(Breakpoints.Handset)
     .pipe(
       map((result) => result.matches),
-      shareReplay()
+      shareReplay(),
     );
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private getTenantInfo: GetTenantInfoGQL,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
   ) {
     this.tenant$ = this.getTenantInfo
       .watch()
@@ -53,7 +53,7 @@ export class NavigationComponent {
       .observe(Breakpoints.Handset)
       .pipe(
         map((result) => result.matches),
-        first()
+        first(),
       )
       .toPromise();
     if (isHandset) {
