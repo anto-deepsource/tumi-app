@@ -27,7 +27,10 @@ export class CheckAdditionalDataComponent implements OnChanges {
   >(1);
   public inputForm = new FormGroup({});
   public SubmissionItemType = SubmissionItemType;
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {}
+  constructor(
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.event) {
@@ -40,15 +43,15 @@ export class CheckAdditionalDataComponent implements OnChanges {
         this.needsInput$.next(true);
         this.incompleteItems$.next(
           event.submissionItems.filter(
-            (item) => item.ownSubmissions.length === 0
-          )
+            (item) => item.ownSubmissions.length === 0,
+          ),
         );
         this.inputForm = this.fb.group(
           event.submissionItems
             .filter((item) => item.ownSubmissions.length === 0)
             .reduce((acc, item) => {
               return { ...acc, [item.id]: ['', Validators.required] };
-            }, {})
+            }, {}),
         );
       }
     }

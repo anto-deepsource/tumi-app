@@ -30,7 +30,7 @@ import { environment } from '../../../../../../../apps/tumi-app/src/environments
 })
 export class ClaimEventDialogComponent {
   public idTest = new RegExp(
-    /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
+    /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i,
   );
   public registrationCode$: Observable<
     GetRegistrationCodeInfoQuery['eventRegistrationCode']
@@ -44,30 +44,30 @@ export class ClaimEventDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { code?: string },
     private registrationCodeInfoGQL: GetRegistrationCodeInfoGQL,
     private useRegistrationCodeGQL: UseRegistrationCodeGQL,
-    private permissions: PermissionsService
+    private permissions: PermissionsService,
   ) {
     // private claimCode: ClaimEventGQL
     this.registrationCode$ = this.codeControl.valueChanges.pipe(
       startWith(this.data.code),
       filter((value) => this.idTest.test(value)),
       switchMap(
-        (id) => this.registrationCodeInfoGQL.watch({ code: id }).valueChanges
+        (id) => this.registrationCodeInfoGQL.watch({ code: id }).valueChanges,
       ),
       map(({ data }) => data.eventRegistrationCode),
-      shareReplay(1)
+      shareReplay(1),
     );
     this.availablePrices$ = this.registrationCode$.pipe(
       switchMap((code) =>
         this.permissions.getPricesForUser(
-          code?.targetEvent?.prices?.options ?? []
-        )
+          code?.targetEvent?.prices?.options ?? [],
+        ),
       ),
       tap((prices) => {
         const defaultPrice = prices.find((p) => p.defaultPrice);
         if (defaultPrice) {
           this.priceControl.setValue(defaultPrice);
         }
-      })
+      }),
     );
     if (this.data.code) {
       this.codeControl.patchValue(this.data.code, { emitEvent: true });
@@ -83,9 +83,9 @@ export class ClaimEventDialogComponent {
         this.useRegistrationCodeGQL.mutate({
           id: this.codeControl.value,
           price: this.priceControl.value,
-        })
+        }),
       );
-      
+
       if (data && stripe) {
         stripe.redirectToCheckout({
           sessionId:

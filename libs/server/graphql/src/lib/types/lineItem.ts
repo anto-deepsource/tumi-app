@@ -96,7 +96,7 @@ export const increaseLineItemQuantityMutation = mutationField(
         },
       });
     },
-  }
+  },
 );
 
 // Decrease quantity of line item
@@ -117,7 +117,7 @@ export const decreaseLineItemQuantityMutation = mutationField(
         },
       });
     },
-  }
+  },
 );
 
 // Remove line item
@@ -184,5 +184,5 @@ export const addLineItemToBasketMutation = mutationField(
         },
       });
     },
-  }
+  },
 );

@@ -11,7 +11,7 @@ export class IfStatusDirective {
   constructor(
     private templateRef: TemplateRef<unknown>,
     private viewContainer: ViewContainerRef,
-    private permissions: PermissionsService
+    private permissions: PermissionsService,
   ) {}
 
   @Input() set tumiIfStatus(allowList: MembershipStatus[]) {

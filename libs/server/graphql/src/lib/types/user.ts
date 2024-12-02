@@ -231,7 +231,7 @@ export const listUsersQuery = queryField('users', {
   resolve: (
     source,
     { statusList, roleList, search, pageLength, pageIndex, onlyWithPurchase },
-    context
+    context,
   ) => {
     if (context.assignment.role != 'ADMIN') {
       throw new ApolloError('Only admins can read the list of users');
@@ -409,7 +409,7 @@ export const createUser = mutationField('registerUser', {
   },
   resolve: async (source, args, context) => {
     const { email, email_verified, picture } = await context.auth0.getUserInfo(
-      context.token.sub
+      context.token.sub,
     );
     return context.prisma.user.create({
       data: {

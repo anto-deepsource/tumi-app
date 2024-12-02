@@ -65,7 +65,7 @@ export const createEventMoveOrderMutation = mutationField(
       });
       return context.prisma.eventRegistration.findUnique({ where: { id } });
     },
-  }
+  },
 );
 
 export const getMoveOrder = queryField('moveOrder', {

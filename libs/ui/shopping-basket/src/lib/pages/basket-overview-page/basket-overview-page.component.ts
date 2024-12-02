@@ -29,20 +29,20 @@ export class BasketOverviewPageComponent {
     private increaseItemQuantityGQL: IncreaseItemQuantityGQL,
     private decreaseItemQuantityGQL: DecreaseItemQuantityGQL,
     private deleteLineItemGQL: DeleteLineItemGQL,
-    private createPurchaseFromCartGQL: CreatePurchaseFromCartGQL
+    private createPurchaseFromCartGQL: CreatePurchaseFromCartGQL,
   ) {
     this.loadBasketRef = this.loadUserBasketGQL.watch();
     this.basket$ = this.loadBasketRef.valueChanges.pipe(
-      map(({ data }) => data.currentUser)
+      map(({ data }) => data.currentUser),
     );
     this.totalCost$ = this.basket$.pipe(
       map(
         (basket) =>
           basket?.currentTenant?.cart?.items.reduce(
             (total, lineItem) => total + lineItem.quantity * lineItem.cost,
-            0
-          ) ?? 0
-      )
+            0,
+          ) ?? 0,
+      ),
     );
   }
 

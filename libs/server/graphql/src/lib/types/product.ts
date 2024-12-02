@@ -83,7 +83,7 @@ export const productType = objectType({
                     purchase: { status: { not: PurchaseStatus.CANCELLED } },
                   },
                 }
-              : undefined
+              : undefined,
           );
       },
     });
@@ -158,12 +158,12 @@ export const productType = objectType({
                   items.map((item) =>
                     times(
                       item.quantity,
-                      constant(item.purchase.user.university)
-                    )
-                  )
-                )
-              )
-            ).map(([uni, count]) => ({ uni, count }))
+                      constant(item.purchase.user.university),
+                    ),
+                  ),
+                ),
+              ),
+            ).map(([uni, count]) => ({ uni, count })),
           );
       },
     });
@@ -204,15 +204,15 @@ export const productType = objectType({
                       constant(
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-ignore
-                        item.submissions.map((s) => s.data.value).join(' - ')
-                      )
-                    )
-                  )
-                )
-              )
+                        item.submissions.map((s) => s.data.value).join(' - '),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             )
               .filter(([version]) => version)
-              .map(([version, count]) => ({ version, count }))
+              .map(([version, count]) => ({ version, count })),
           )
           .then((versions) => (versions.length > 0 ? versions : null));
       },
