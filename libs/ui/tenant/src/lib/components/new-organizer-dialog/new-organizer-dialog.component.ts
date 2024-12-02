@@ -12,7 +12,7 @@ export class NewOrganizerDialogComponent implements OnInit {
   public newOrganizerForm: FormGroup;
   constructor(
     private dialog: MatDialogRef<NewOrganizerDialogComponent>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {
     this.newOrganizerForm = this.fb.group({
       name: ['', Validators.required],
@@ -23,7 +23,7 @@ export class NewOrganizerDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit(): void  {
+  onSubmit(): void {
     if (this.newOrganizerForm.valid) {
       this.dialog.close(this.newOrganizerForm.value);
     }

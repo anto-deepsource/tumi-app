@@ -31,7 +31,7 @@ export const webhookRouter = (prisma: PrismaClient) => {
         event = stripe.webhooks.constructEvent(
           request.body,
           sig,
-          process.env.STRIPE_WH_SECRET
+          process.env.STRIPE_WH_SECRET,
         );
       } catch (err) {
         console.error(err);
@@ -47,7 +47,7 @@ export const webhookRouter = (prisma: PrismaClient) => {
             typeof session.client_reference_id === 'string'
           ) {
             const setupIntent = await stripe.setupIntents.retrieve(
-              session.setup_intent
+              session.setup_intent,
             );
             if (typeof setupIntent.payment_method === 'string') {
               await prisma.stripeUserData.update({
@@ -137,7 +137,7 @@ export const webhookRouter = (prisma: PrismaClient) => {
           let balanceTransaction;
           if (typeof charge?.balance_transaction === 'string') {
             balanceTransaction = await stripe.balanceTransactions.retrieve(
-              charge.balance_transaction
+              charge.balance_transaction,
             );
           } else {
             balanceTransaction = charge?.balance_transaction;
@@ -232,7 +232,7 @@ export const webhookRouter = (prisma: PrismaClient) => {
                   include: {
                     payment: true,
                   },
-                }
+                },
               );
               if (removedRegistration.payment) {
                 try {
@@ -594,7 +594,7 @@ export const webhookRouter = (prisma: PrismaClient) => {
           console.log(`Unhandled event type ${event.type}`);
       }
       response.sendStatus(200);
-    }
+    },
   );
   return router;
 };
@@ -618,7 +618,7 @@ export const webhookRouter2 = (prisma) => {
         event = stripe.webhooks.constructEvent(
           request.body,
           sig,
-          process.env.STRIPE_WH_SECRET
+          process.env.STRIPE_WH_SECRET,
         );
       } catch (err) {
         response.status(400).send(`Webhook Error: ${err.message}`);
@@ -631,7 +631,7 @@ export const webhookRouter2 = (prisma) => {
             typeof session.client_reference_id === 'string'
           ) {
             const setupIntent = await stripe.setupIntents.retrieve(
-              session.setup_intent
+              session.setup_intent,
             );
             if (typeof setupIntent.payment_method === 'string') {
               await prisma.stripeUserData.update({
@@ -702,7 +702,7 @@ export const webhookRouter2 = (prisma) => {
                 },
               });
               throw new Error(
-                'Could not process event registration move because of missing registration'
+                'Could not process event registration move because of missing registration',
               );
             }
             const moveOrder =
@@ -718,7 +718,7 @@ export const webhookRouter2 = (prisma) => {
                 },
               });
               throw new Error(
-                'Could not process event registration move because of missing order'
+                'Could not process event registration move because of missing order',
               );
             }
             try {
@@ -774,7 +774,7 @@ export const webhookRouter2 = (prisma) => {
           if (typeof charge?.balance_transaction === 'string') {
             const balanceTransaction =
               await stripe.balanceTransactions.retrieve(
-                charge.balance_transaction
+                charge.balance_transaction,
               );
             if (!paymentIntent.metadata.isMove) {
               try {
@@ -832,7 +832,7 @@ export const webhookRouter2 = (prisma) => {
                   },
                 });
                 throw new Error(
-                  'Could not process event registration move because of missing registration'
+                  'Could not process event registration move because of missing registration',
                 );
               }
               const moveOrder =
@@ -848,7 +848,7 @@ export const webhookRouter2 = (prisma) => {
                   },
                 });
                 throw new Error(
-                  'Could not process event registration move because of missing order'
+                  'Could not process event registration move because of missing order',
                 );
               }
               if (registration.paymentStaus !== 'processing') {
@@ -965,7 +965,7 @@ export const webhookRouter2 = (prisma) => {
           console.log(`Unhandled event type ${event.type}`);
       }
       response.sendStatus(200);
-    }
+    },
   );
   return router;
 };

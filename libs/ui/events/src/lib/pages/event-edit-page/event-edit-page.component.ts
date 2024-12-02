@@ -82,7 +82,7 @@ export class EventEditPageComponent implements OnInit, OnDestroy {
     private updateLocationMutation: UpdateEventLocationGQL,
     private fb: FormBuilder,
     private deregisterFromEventGQL: DeregisterFromEventGQL,
-    public permission: PermissionsService
+    public permission: PermissionsService,
   ) {
     this.title.setTitle('TUMi - edit event');
     this.publicationForm = this.fb.group({
@@ -112,26 +112,26 @@ export class EventEditPageComponent implements OnInit, OnDestroy {
     });
     this.event$ = this.route.paramMap.pipe(
       map((params) =>
-        this.loadEventQuery.watch({ id: params.get('eventId') ?? '' })
+        this.loadEventQuery.watch({ id: params.get('eventId') ?? '' }),
       ),
       tap((ref) => (this.loadEventRef = ref)),
       switchMap((ref) => ref.valueChanges),
       map(({ data }) => data.event),
-      shareReplay(1)
+      shareReplay(1),
     );
     this.organizers$ = this.route.paramMap.pipe(
       switchMap((params) =>
-        this.loadEventQuery.fetch({ id: params.get('eventId') ?? '' })
+        this.loadEventQuery.fetch({ id: params.get('eventId') ?? '' }),
       ),
       map(({ data }) => data.organizers),
-      shareReplay(1)
+      shareReplay(1),
     );
     this.users$ = this.event$.pipe(
       switchMap((event) =>
-        this.loadUsers.fetch({ allowList: event?.organizerSignup ?? [] })
+        this.loadUsers.fetch({ allowList: event?.organizerSignup ?? [] }),
       ),
       map(({ data }) => data.userWithStatus),
-      shareReplay(1)
+      shareReplay(1),
     );
     this.editingProhibited$ = combineLatest([
       this.permission.hasRole([Role.Admin]),
@@ -139,13 +139,13 @@ export class EventEditPageComponent implements OnInit, OnDestroy {
     ]).pipe(
       map(
         ([permission, event]) =>
-          !(permission || event?.publicationState === PublicationState.Draft)
+          !(permission || event?.publicationState === PublicationState.Draft),
       ),
       tap((prohibited) => {
         if (prohibited) {
           this.coreInformationForm.disable();
         }
-      })
+      }),
     );
   }
 
@@ -157,18 +157,18 @@ export class EventEditPageComponent implements OnInit, OnDestroy {
     return this.coreInformationForm.get('prices')?.get('options') as FormArray;
   }
 
-  addPrice(): void  {
+  addPrice(): void {
     this.prices.push(
       this.fb.group({
         amount: ['', Validators.required],
         esnCardRequired: [false, Validators.required],
         allowedStatusList: [this.statusOptions, Validators.required],
         defaultPrice: [false, Validators.required],
-      })
+      }),
     );
   }
 
-  removePrice(index: number): void  {
+  removePrice(index: number): void {
     const priceToRemove = this.prices.at(index);
     if (priceToRemove?.get('defaultPrice')?.value) {
       return;
@@ -197,7 +197,7 @@ export class EventEditPageComponent implements OnInit, OnDestroy {
             includeOffset: false,
           }),
         },
-        { emitEvent: true }
+        { emitEvent: true },
       );
       this.publicationForm.patchValue(event);
     }
@@ -205,7 +205,7 @@ export class EventEditPageComponent implements OnInit, OnDestroy {
       .get('registrationMode')
       ?.valueChanges.pipe(
         startWith(this.coreInformationForm.get('registrationMode')?.value),
-        takeUntil(this.destroyed$)
+        takeUntil(this.destroyed$),
       )
       .subscribe((mode) => {
         switch (mode) {
@@ -251,7 +251,8 @@ export class EventEditPageComponent implements OnInit, OnDestroy {
     const users = await firstValueFrom(this.users$);
     const event = await firstValueFrom(this.event$);
     const choices = users.filter(
-      (user) => !event?.organizers.some((organizer) => organizer.id === user.id)
+      (user) =>
+        !event?.organizers.some((organizer) => organizer.id === user.id),
     );
     loader.dismiss();
     const userId = await this.dialog
@@ -273,7 +274,7 @@ export class EventEditPageComponent implements OnInit, OnDestroy {
   async removeUser(registrationId: string) {
     this.snackBar.open('Removing user ⏳', undefined, { duration: 0 });
     await firstValueFrom(
-      this.deregisterFromEventGQL.mutate({ registrationId, withRefund: false })
+      this.deregisterFromEventGQL.mutate({ registrationId, withRefund: false }),
     );
     if (this.loadEventRef) {
       await this.loadEventRef.refetch();
@@ -347,7 +348,7 @@ export class EventEditPageComponent implements OnInit, OnDestroy {
         this.updateGeneralEventGQL.mutate({
           id: event.id,
           data: update,
-        })
+        }),
       );
       if (data) {
         delete data.updateEventGeneralInfo.__typename;
@@ -370,10 +371,10 @@ export class EventEditPageComponent implements OnInit, OnDestroy {
             start: DateTime.fromISO(update.start).toJSDate(),
             end: DateTime.fromISO(update.end).toJSDate(),
             registrationStart: DateTime.fromISO(
-              update.registrationStart
+              update.registrationStart,
             ).toJSDate(),
           },
-        })
+        }),
       );
       if (data) {
         delete data.updateEventCoreInfo.__typename;
@@ -386,7 +387,7 @@ export class EventEditPageComponent implements OnInit, OnDestroy {
             includeOffset: false,
           }),
           registrationStart: DateTime.fromISO(
-            data.updateEventCoreInfo.registrationStart
+            data.updateEventCoreInfo.registrationStart,
           ).toISO({
             includeOffset: false,
           }),

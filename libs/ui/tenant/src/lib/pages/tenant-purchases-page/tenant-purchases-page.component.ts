@@ -26,12 +26,12 @@ export class TenantPurchasesPageComponent implements OnDestroy {
   constructor(private loadPurchasesGQL: GetTenantPurchasesGQL) {
     this.loadPurchasesRef = this.loadPurchasesGQL.watch();
     this.purchases$ = this.loadPurchasesRef.valueChanges.pipe(
-      map((result) => result.data.purchases)
+      map((result) => result.data.purchases),
     );
     this.loadPurchasesRef.startPolling(10000);
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.loadPurchasesRef.stopPolling();
   }
 }

@@ -21,7 +21,7 @@ export class TenantEditPageComponent {
   constructor(
     private fb: FormBuilder,
     private updateTenant: UpdateTenantGQL,
-    private loadTenant: GetTenantForEditGQL
+    private loadTenant: GetTenantForEditGQL,
   ) {
     this.editForm = this.fb.group({
       imprintPage: ['', Validators.required],
@@ -32,7 +32,7 @@ export class TenantEditPageComponent {
     });
     this.tenant$ = this.loadTenant.fetch().pipe(
       map(({ data }) => data.currentTenant),
-      shareReplay(1)
+      shareReplay(1),
     );
     this.tenant$
       .pipe(first())
@@ -54,7 +54,6 @@ export class TenantEditPageComponent {
         })
         .toPromise();
     } else {
-      
     }
   }
 }

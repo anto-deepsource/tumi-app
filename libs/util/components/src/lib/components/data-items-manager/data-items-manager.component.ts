@@ -34,7 +34,7 @@ export class DataItemsManagerComponent {
   constructor(
     private dialog: MatDialog,
     private createSubmissionItemGQL: CreateSubmissionItemGQL,
-    private deleteSubmissionItemGQL: DeleteSubmissionItemGQL
+    private deleteSubmissionItemGQL: DeleteSubmissionItemGQL,
   ) {}
 
   async addItem() {
@@ -49,7 +49,7 @@ export class DataItemsManagerComponent {
           maxWidth: '560px',
           panelClass: 'modern',
         })
-        .afterClosed()
+        .afterClosed(),
     );
     if (item) {
       await firstValueFrom(
@@ -57,7 +57,7 @@ export class DataItemsManagerComponent {
           target: this.mode,
           id: this.parentId,
           input: item,
-        })
+        }),
       );
       this.reloadParent.emit();
     }
@@ -67,7 +67,7 @@ export class DataItemsManagerComponent {
     await firstValueFrom(
       this.deleteSubmissionItemGQL.mutate({
         id: id,
-      })
+      }),
     );
     this.reloadParent.emit();
   }

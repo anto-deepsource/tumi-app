@@ -20,7 +20,10 @@ import { map } from 'rxjs/operators';
 export class AppComponent {
   public appState: Observable<'ok' | 'down' | 'maintenance' | string>;
   public showNavigation$ = new BehaviorSubject(true);
-  constructor(private http: HttpClient, private location: Location) {
+  constructor(
+    private http: HttpClient,
+    private location: Location,
+  ) {
     this.location.onUrlChange((url) => {
       if (url.includes('orders/labels')) {
         this.showNavigation$.next(false);
@@ -47,7 +50,7 @@ export class AppComponent {
           return 'ok';
         }
       }),
-      startWith('ok')
+      startWith('ok'),
     );
   }
 }

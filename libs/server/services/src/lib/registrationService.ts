@@ -13,7 +13,7 @@ export class RegistrationService {
   private static prisma = DBClient.getInstance().prisma;
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   private static stripe: stripe.Stripe = require('stripe')(
-    process.env.STRIPE_KEY
+    process.env.STRIPE_KEY,
   );
 
   public static async registerWithCode(
@@ -22,10 +22,10 @@ export class RegistrationService {
     userId: string,
     price?: Price,
     cancelUrl?: string,
-    successUrl?: string
+    successUrl?: string,
   ) {
     const registrationCode = await this.prisma.eventRegistrationCode.findUnique(
-      { where: { id: registrationCodeId }, include: { targetEvent: true } }
+      { where: { id: registrationCodeId }, include: { targetEvent: true } },
     );
     if (
       registrationCode.targetEvent.registrationMode === RegistrationMode.STRIPE
@@ -46,7 +46,7 @@ export class RegistrationService {
         cancelUrl,
         successUrl,
         userId,
-        registrationCode.sepaAllowed
+        registrationCode.sepaAllowed,
       );
       const registration = await this.prisma.eventRegistration.create({
         data: {
@@ -102,7 +102,7 @@ export class RegistrationService {
     cancelUrl: string,
     successUrl: string,
     userId: string,
-    allowSepa = false
+    allowSepa = false,
   ) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
@@ -183,7 +183,7 @@ export class RegistrationService {
     submissions,
     price?: Price,
     cancelUrl?: string,
-    successUrl?: string
+    successUrl?: string,
   ) {
     const event = await prisma.tumiEvent.findUnique({ where: { id: eventId } });
     if (
@@ -205,7 +205,7 @@ export class RegistrationService {
         'book',
         cancelUrl,
         successUrl,
-        userId
+        userId,
       );
       // const submissionArray = [];
       // if (submissions) {
@@ -263,7 +263,7 @@ export class RegistrationService {
     registrationId: string,
     withRefund: boolean,
     isKick: boolean,
-    context: GetGen<'context'>
+    context: GetGen<'context'>,
   ) {
     const registration = await context.prisma.eventRegistration.findUnique({
       where: { id: registrationId },
