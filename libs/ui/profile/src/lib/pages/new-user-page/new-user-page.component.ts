@@ -19,7 +19,7 @@ export class NewUserPageComponent implements OnInit {
     private registerUser: RegisterUserGQL,
     private fb: FormBuilder,
     private currentUser: GetCurrentUserGQL,
-    private router: Router
+    private router: Router,
   ) {
     this.title.setTitle('TUMi - welcome');
     this.welcomeForm = this.fb.group({
@@ -31,7 +31,7 @@ export class NewUserPageComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void  {
+  ngOnInit(): void {
     this.currentUser.fetch().subscribe(({ data }) => {
       if (data.currentUser) {
         this.router.navigate(['/', 'profile']);
@@ -39,7 +39,7 @@ export class NewUserPageComponent implements OnInit {
     });
   }
 
-  public onSubmit(): void  {
+  public onSubmit(): void {
     if (this.welcomeForm.invalid) return;
     this.registerUser
       .mutate({ userInput: this.welcomeForm.value })

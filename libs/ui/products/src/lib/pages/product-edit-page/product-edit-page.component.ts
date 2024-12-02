@@ -52,11 +52,11 @@ export class ProductEditPageComponent implements OnInit, OnDestroy {
     private deleteProductImageGQL: DeleteProductImageGQL,
     private updateLeadImageGQL: UpdateLeadImageGQL,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {
     this.loadProductRef = this.loadProductGQL.watch();
     this.product$ = this.loadProductRef.valueChanges.pipe(
-      map(({ data }) => data.product)
+      map(({ data }) => data.product),
     );
     this.route.paramMap.pipe(takeUntil(this.destroyed$)).subscribe((params) => {
       this.loadProductRef.refetch({ id: params.get('productId') ?? '' });
@@ -82,18 +82,18 @@ export class ProductEditPageComponent implements OnInit, OnDestroy {
     return this.editForm.get('prices')?.get('options') as FormArray;
   }
 
-  addPrice(): void  {
+  addPrice(): void {
     this.prices.push(
       this.fb.group({
         amount: ['', Validators.required],
         esnCardRequired: [false, Validators.required],
         allowedStatusList: [this.statusOptions, Validators.required],
         defaultPrice: [false, Validators.required],
-      })
+      }),
     );
   }
 
-  removePrice(index: number): void  {
+  removePrice(index: number): void {
     const priceToRemove = this.prices.at(index);
     if (priceToRemove?.get('defaultPrice')?.value) {
       return;
@@ -110,7 +110,7 @@ export class ProductEditPageComponent implements OnInit, OnDestroy {
         this.updateProductGQL.mutate({
           id: product.id,
           update,
-        })
+        }),
       );
       if (data) {
         this.editForm.patchValue(data.updateProduct);
@@ -131,7 +131,7 @@ export class ProductEditPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.destroyed$.next(true);
     this.destroyed$.complete();
   }
@@ -157,7 +157,7 @@ export class ProductEditPageComponent implements OnInit, OnDestroy {
             originalBlob: blob,
             container,
           },
-        })
+        }),
       );
       this.loadProductRef.refetch();
     }
@@ -175,7 +175,7 @@ export class ProductEditPageComponent implements OnInit, OnDestroy {
       this.updateLeadImageGQL.mutate({
         productId: product.id,
         imageId: id,
-      })
+      }),
     );
   }
 
@@ -183,12 +183,12 @@ export class ProductEditPageComponent implements OnInit, OnDestroy {
     await firstValueFrom(
       this.deleteProductImageGQL.mutate({
         imageId: id,
-      })
+      }),
     );
     this.loadProductRef.refetch();
   }
 
-  reloadProduct(): void  {
+  reloadProduct(): void {
     this.loadProductRef.refetch();
   }
 }

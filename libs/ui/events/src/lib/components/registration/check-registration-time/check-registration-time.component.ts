@@ -29,7 +29,7 @@ export class CheckRegistrationTimeComponent implements OnChanges {
     ]).pipe(
       map(([, registrationStart]) => {
         return DateTime.now() > registrationStart;
-      })
+      }),
     );
     this.remainingTime$ = combineLatest([
       this.interval,
@@ -37,14 +37,14 @@ export class CheckRegistrationTimeComponent implements OnChanges {
     ]).pipe(
       map(([, registrationStart]) => {
         return registrationStart.toRelative() ?? '';
-      })
+      }),
     );
   }
 
-  ngOnChanges(changes: SimpleChanges): void  {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.event) {
       this.registrationStart$.next(
-        DateTime.fromISO(changes.event.currentValue.registrationStart)
+        DateTime.fromISO(changes.event.currentValue.registrationStart),
       );
     }
   }

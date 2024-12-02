@@ -23,13 +23,13 @@ export class TenantRegistrationsPageComponent implements OnDestroy {
   private registrationsQueryRef;
   constructor(
     private title: Title,
-    private loadRegistrations: GetRegistrationsGQL
+    private loadRegistrations: GetRegistrationsGQL,
   ) {
     this.title.setTitle('TUMi - manage registrations');
     this.registrationsQueryRef = this.loadRegistrations.watch();
     this.registrationsQueryRef.startPolling(5000);
     this.registrations$ = this.registrationsQueryRef.valueChanges.pipe(
-      map(({ data }) => data.registrations)
+      map(({ data }) => data.registrations),
     );
     // this.registrations$.subscribe((registrations) => {
     //   const feeRegistrations = registrations.filter((reg) => reg.stripeFee);
@@ -51,7 +51,7 @@ export class TenantRegistrationsPageComponent implements OnDestroy {
     // });
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.registrationsQueryRef.stopPolling();
   }
 }
