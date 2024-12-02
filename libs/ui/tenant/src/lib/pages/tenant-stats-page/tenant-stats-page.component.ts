@@ -18,11 +18,11 @@ export class TenantStatsPageComponent implements OnDestroy {
     this.getStatisticsRef = this.getStatistics.watch();
     this.getStatisticsRef.startPolling(5000);
     this.tenant$ = this.getStatisticsRef.valueChanges.pipe(
-      map(({ data }) => data.currentTenant)
+      map(({ data }) => data.currentTenant),
     );
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.getStatisticsRef.stopPolling();
   }
 }

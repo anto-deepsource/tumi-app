@@ -20,7 +20,7 @@ export class OnlineEventRegistrationComponent {
   constructor(
     private registerForEvent: RegisterForEventGQL,
     private deregistrationMutation: DeregisterFromEventGQL,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {}
 
   get lastDeregistration() {
@@ -37,7 +37,7 @@ export class OnlineEventRegistrationComponent {
     this.processing.next(true);
     try {
       await firstValueFrom(
-        this.registerForEvent.mutate({ eventId: this.event?.id ?? '' })
+        this.registerForEvent.mutate({ eventId: this.event?.id ?? '' }),
       );
     } catch (e) {
       this.processing.next(false);
@@ -55,7 +55,7 @@ export class OnlineEventRegistrationComponent {
       await firstValueFrom(
         this.deregistrationMutation.mutate({
           registrationId: this.event?.activeRegistration?.id ?? '',
-        })
+        }),
       );
     } catch (e: unknown) {
       this.processing.next(false);

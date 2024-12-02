@@ -20,16 +20,16 @@ export class TenantRegistrationCodePageComponent {
 
   constructor(
     private eventRegistrationCodeGQL: GetEventRegistrationCodeGQL,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.eventRegistrationCode$ = this.route.paramMap.pipe(
       switchMap(
         (params) =>
           this.eventRegistrationCodeGQL.watch({
             registrationId: params.get('codeId') ?? '',
-          }).valueChanges
+          }).valueChanges,
       ),
-      map(({ data }) => data.eventRegistrationCode)
+      map(({ data }) => data.eventRegistrationCode),
     );
   }
 }
