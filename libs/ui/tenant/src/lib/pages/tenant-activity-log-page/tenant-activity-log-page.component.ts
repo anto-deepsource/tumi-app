@@ -20,24 +20,24 @@ export class TenantActivityLogPageComponent implements OnDestroy {
   constructor(
     private title: Title,
     private loadLogQuery: GetLogsGQL,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.title.setTitle('TUMi - manage registrations');
     this.logsQueryRef = this.loadLogQuery.watch();
     this.logsQueryRef.startPolling(5000);
     this.logs$ = this.logsQueryRef.valueChanges.pipe(
-      map(({ data }) => data.logs)
+      map(({ data }) => data.logs),
     );
     this.stats$ = this.logsQueryRef.valueChanges.pipe(
-      map(({ data }) => data.logStats)
+      map(({ data }) => data.logStats),
     );
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.logsQueryRef.stopPolling();
   }
 
-  showDetails(log: GetLogsQuery['logs'][0]): void  {
+  showDetails(log: GetLogsQuery['logs'][0]): void {
     this.dialog.open(ShowDataDialogComponent, { data: log });
   }
 }

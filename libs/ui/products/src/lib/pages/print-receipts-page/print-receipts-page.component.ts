@@ -19,7 +19,7 @@ export class PrintReceiptsPageComponent implements OnInit {
     //   map(({ data }) => data.products)
     // );
     this.users$ = this.loadOrdersRef.valueChanges.pipe(
-      map(({ data }) => data.users)
+      map(({ data }) => data.users),
     );
   }
   async ngOnInit() {

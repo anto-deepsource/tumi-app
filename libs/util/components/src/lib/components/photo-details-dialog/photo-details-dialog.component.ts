@@ -15,7 +15,7 @@ export class PhotoDetailsDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: { photo: PhotoShare },
-    private http: HttpClient
+    private http: HttpClient,
   ) {}
 
   get canShareImage() {
@@ -26,7 +26,7 @@ export class PhotoDetailsDialogComponent {
 
   async shareImage() {
     const image = await firstValueFrom(
-      this.http.get(this.data.photo.original, { responseType: 'blob' })
+      this.http.get(this.data.photo.original, { responseType: 'blob' }),
     );
     const file = new File([image], this.data.photo.originalBlob, {
       type: this.data.photo.type,
@@ -39,7 +39,7 @@ export class PhotoDetailsDialogComponent {
     });
   }
 
-  imageLoad($event: Event): void  {
+  imageLoad($event: Event): void {
     this.imageLoaded$.next(true);
   }
 }

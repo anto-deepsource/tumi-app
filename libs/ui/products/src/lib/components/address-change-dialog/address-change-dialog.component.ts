@@ -22,7 +22,7 @@ export class AddressChangeDialogComponent {
         state?: string;
       };
     },
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {
     this.addressForm = this.fb.group({
       city: ['', Validators.required],
