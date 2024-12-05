@@ -68,7 +68,7 @@ import { createPersistedQueryLink } from 'apollo-angular/persisted-queries';
         canActivate: [AuthGuard, CheckUserGuard],
         loadChildren: () =>
           import('@tumi/ui/event-templates').then(
-            (module) => module.UiEventTemplatesModule
+            (module) => module.UiEventTemplatesModule,
           ),
       },
       {
@@ -101,7 +101,7 @@ import { createPersistedQueryLink } from 'apollo-angular/persisted-queries';
         path: 'basket',
         loadChildren: () =>
           import('@tumi/ui/shopping-basket').then(
-            (module) => module.UiShoppingBasketModule
+            (module) => module.UiShoppingBasketModule,
           ),
       },
       {
@@ -154,8 +154,8 @@ import { createPersistedQueryLink } from 'apollo-angular/persisted-queries';
           if (graphQLErrors)
             graphQLErrors.map(({ message, locations, path }) =>
               console.log(
-                `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-              )
+                `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+              ),
             );
 
           if (networkError) console.log(`[Network error]: `, networkError);
@@ -165,7 +165,7 @@ import { createPersistedQueryLink } from 'apollo-angular/persisted-queries';
             createPersistedQueryLink({
               sha256,
               useGETForHashedQueries: true,
-            })
+            }),
           )
           .concat(http);
 
@@ -215,7 +215,7 @@ export class AppModule {
     appRef: ApplicationRef,
     updates: SwUpdate,
     snackBar: MatSnackBar,
-    @Inject(PLATFORM_ID) platform: any
+    @Inject(PLATFORM_ID) platform: any,
   ) {
     if (environment.production) {
       const angularPlugin = new AngularPlugin();
@@ -252,7 +252,7 @@ export class AppModule {
         })
         .onAction()
         .subscribe(() =>
-          updates.activateUpdate().then(() => document.location.reload())
+          updates.activateUpdate().then(() => document.location.reload()),
         );
     });
   }

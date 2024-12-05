@@ -18,7 +18,7 @@ export class EventFormDialogComponent {
     private fb: FormBuilder,
     private dialog: MatDialogRef<EventFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data?: { template?: GetEventTemplateQuery['eventTemplate'] }
+    public data?: { template?: GetEventTemplateQuery['eventTemplate'] },
   ) {
     this.dialogForm = this.fb.group({
       title: ['', Validators.required],
@@ -37,7 +37,7 @@ export class EventFormDialogComponent {
     }
   }
 
-  onSubmit(): void  {
+  onSubmit(): void {
     if (this.dialogForm.valid) {
       const templateValue = this.dialogForm.value;
       if (templateValue.location?.id) {
@@ -49,7 +49,6 @@ export class EventFormDialogComponent {
       }
       this.dialog.close(templateValue);
     } else {
-      
     }
   }
 }

@@ -21,7 +21,7 @@ export class UpdateUserDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { user: GetUsersQuery['users'][0] },
     private fb: FormBuilder,
-    private dialog: MatDialogRef<UpdateUserDialogComponent>
+    private dialog: MatDialogRef<UpdateUserDialogComponent>,
   ) {
     this.updateForm = this.fb.group({
       status: ['', Validators.required],
@@ -31,13 +31,11 @@ export class UpdateUserDialogComponent implements OnInit {
       role: this.data.user.currentTenant?.role,
       status: this.data.user.currentTenant?.status,
     });
-    
-    
   }
 
   ngOnInit(): void {}
 
-  onSubmit(): void  {
+  onSubmit(): void {
     if (this.updateForm.valid) {
       this.dialog.close(this.updateForm.value);
     }

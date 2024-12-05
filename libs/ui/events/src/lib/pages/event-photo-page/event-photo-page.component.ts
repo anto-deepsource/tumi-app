@@ -36,22 +36,22 @@ export class EventPhotoPageComponent implements OnDestroy {
     private snackbar: MatSnackBar,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
   ) {
     this.loadPhotosRef = this.loadPhotos.watch();
     this.photos$ = this.loadPhotosRef.valueChanges.pipe(
-      map(({ data }) => data.photosOfEvent)
+      map(({ data }) => data.photosOfEvent),
     );
     this.event$ = this.loadPhotosRef.valueChanges.pipe(
-      map(({ data }) => data.event)
+      map(({ data }) => data.event),
     );
     this.route.paramMap
       .pipe(takeUntil(this.destroyed$))
       .subscribe((params) =>
-        this.loadPhotosRef.refetch({ eventId: params.get('eventId') ?? '' })
+        this.loadPhotosRef.refetch({ eventId: params.get('eventId') ?? '' }),
       );
   }
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.destroyed$.next(true);
     this.destroyed$.complete();
   }
@@ -69,11 +69,11 @@ export class EventPhotoPageComponent implements OnDestroy {
     const files = await Promise.all(
       photos.map((photo) =>
         firstValueFrom(
-          this.http.get(photo.original, { responseType: 'blob' })
+          this.http.get(photo.original, { responseType: 'blob' }),
         ).then(
-          (blob) => new File([blob], photo.originalBlob, { type: photo.type })
-        )
-      )
+          (blob) => new File([blob], photo.originalBlob, { type: photo.type }),
+        ),
+      ),
     );
     try {
       await navigator.share({
@@ -95,16 +95,16 @@ export class EventPhotoPageComponent implements OnDestroy {
     const event = await firstValueFrom(this.event$);
     if (target && target.files && event) {
       const files = Array.from(target.files).filter((file) =>
-        file.type.startsWith('image/')
+        file.type.startsWith('image/'),
       );
-      
+
       const { data } = await firstValueFrom(this.getShareKey.fetch());
       const uploads = new BehaviorSubject(files.map(() => 0));
       uploads.subscribe((progress) => {
         const totalProgress =
           progress.reduce(
             (previousValue, currentValue) => previousValue + currentValue,
-            0
+            0,
           ) / progress.length;
         if (totalProgress > 0) {
           this.uploadMode$.next('determinate');
@@ -149,9 +149,9 @@ export class EventPhotoPageComponent implements OnDestroy {
                 originalBlob: blob,
                 type: file.type,
               },
-            })
+            }),
           );
-        })
+        }),
       );
       uploads.complete();
       this.snackbar.open(`✔️ ${files.length} Photos uploaded`);
@@ -161,7 +161,7 @@ export class EventPhotoPageComponent implements OnDestroy {
     }
   }
 
-  openPhoto(photo: unknown): void  {
+  openPhoto(photo: unknown): void {
     this.dialog.open(PhotoDetailsDialogComponent, {
       data: { photo },
       maxHeight: '95vh',

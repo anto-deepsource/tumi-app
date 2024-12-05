@@ -26,20 +26,20 @@ export class EventRunPageComponent implements OnDestroy {
     private loadEvent: LoadEventForRunningGQL,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
   ) {
     this.title.setTitle('TUMi - run event');
     this.loadEventQueryRef = this.loadEvent.watch();
     this.route.paramMap.subscribe((params) =>
-      this.loadEventQueryRef.refetch({ id: params.get('eventId') ?? '' })
+      this.loadEventQueryRef.refetch({ id: params.get('eventId') ?? '' }),
     );
     this.event$ = this.loadEventQueryRef.valueChanges.pipe(
-      map(({ data }) => data.event)
+      map(({ data }) => data.event),
     );
     this.loadEventQueryRef.startPolling(5000);
   }
 
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.destroyed$.next(true);
     this.destroyed$.complete();
     this.loadEventQueryRef.stopPolling();
@@ -61,7 +61,7 @@ export class EventRunPageComponent implements OnDestroy {
     const pending = this.clipboard.beginCopy(
       event.organizerRegistrations
         .map((registration) => registration.user.email)
-        .join(';')
+        .join(';'),
     );
     let remainingAttempts = 3;
     const attempt = () => {
@@ -81,7 +81,7 @@ export class EventRunPageComponent implements OnDestroy {
     const pending = this.clipboard.beginCopy(
       event.participantRegistrations
         .map((registration) => registration.user.email)
-        .join(';')
+        .join(';'),
     );
     let remainingAttempts = 3;
     const attempt = () => {
@@ -103,7 +103,7 @@ export class EventRunPageComponent implements OnDestroy {
       event.participantRegistrations
         .filter((registration) => registration.checkInTime)
         .map((registration) => registration.user.email)
-        .join(';')
+        .join(';'),
     );
     let remainingAttempts = 3;
     const attempt = () => {
