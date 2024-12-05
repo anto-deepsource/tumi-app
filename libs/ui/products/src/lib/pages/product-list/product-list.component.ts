@@ -24,12 +24,12 @@ export class ProductListComponent {
     private router: Router,
     private getProductListGQL: GetProductListGQL,
     private createProductGQL: CreateProductGQL,
-    private title: Title
+    private title: Title,
   ) {
     this.title.setTitle('TUMi - shop');
     this.productListRef = this.getProductListGQL.watch();
     this.products$ = this.productListRef.valueChanges.pipe(
-      map(({ data }) => data.products)
+      map(({ data }) => data.products),
     );
   }
   async createProduct() {
