@@ -10,6 +10,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class QrDisplayDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: { id: string; event: string; user: string }
+    public data: { id: string; event: string; user: string },
   ) {}
 }

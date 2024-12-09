@@ -37,15 +37,15 @@ export class TemplateDetailsPageComponent {
     private snackBar: MatSnackBar,
     private updateTemplate: UpdateEventTemplateGQL,
     private updateLocationMutation: UpdateTemplateLocationGQL,
-    private deleteTemplateMutation: DeleteEventTemplateGQL
+    private deleteTemplateMutation: DeleteEventTemplateGQL,
   ) {
     this.title.setTitle('TUMi - Event template');
     this.eventTemplate$ = this.route.paramMap.pipe(
       switchMap((params) =>
         this.getEventTemplate
           .watch({ id: params.get('templateId') ?? '' })
-          .valueChanges.pipe(map(({ data }) => data.eventTemplate))
-      )
+          .valueChanges.pipe(map(({ data }) => data.eventTemplate)),
+      ),
     );
   }
 
@@ -65,7 +65,7 @@ export class TemplateDetailsPageComponent {
           this.createEventMutation.mutate({
             templateId: template.id,
             eventData,
-          })
+          }),
         );
         this.snackBar.open('Event saved successfully');
         if (data) {
@@ -98,7 +98,7 @@ export class TemplateDetailsPageComponent {
   async deleteTemplate() {
     const template = await this.eventTemplate$.pipe(first()).toPromise();
     const approve = confirm(
-      `Do you really want to delete '${template?.title}'?`
+      `Do you really want to delete '${template?.title}'?`,
     );
     if (approve && template) {
       await this.deleteTemplateMutation
@@ -115,7 +115,6 @@ export class TemplateDetailsPageComponent {
       .afterClosed()
       .toPromise();
     if (location && template) {
-      
       await this.updateLocationMutation
         .mutate({
           templateId: template.id,
