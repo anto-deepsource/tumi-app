@@ -47,7 +47,7 @@ export class TenantUsersPageComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private updateMutation: UpdateUserGQL,
     private fb: FormBuilder,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
   ) {
     this.title.setTitle('TUMi - manage users');
     this.loadUsersReference = this.loadUsers.watch({
@@ -56,11 +56,11 @@ export class TenantUsersPageComponent implements OnInit, OnDestroy {
     });
     this.users$ = this.loadUsersReference.valueChanges.pipe(
       map(({ data }) => data.users),
-      shareReplay(1)
+      shareReplay(1),
     );
     this.userNum$ = this.loadUsersReference.valueChanges.pipe(
       map(({ data }) => data.userSearchResultNum),
-      shareReplay(1)
+      shareReplay(1),
     );
     this.filterForm = this.fb.group({
       statusList: [Object.values(MembershipStatus)],
@@ -74,7 +74,7 @@ export class TenantUsersPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed$), debounceTime(500))
       .subscribe((value) => this.loadUsersReference.refetch(value));
   }
-  ngOnDestroy(): void  {
+  ngOnDestroy(): void {
     this.destroyed$.next(true);
     this.destroyed$.complete();
   }
@@ -82,7 +82,7 @@ export class TenantUsersPageComponent implements OnInit, OnDestroy {
   async copyMails() {
     const users = await firstValueFrom(this.users$);
     const pending = this.clipboard.beginCopy(
-      users.map((user) => user.email).join(';')
+      users.map((user) => user.email).join(';'),
     );
     let remainingAttempts = 3;
     const attempt = () => {
@@ -97,7 +97,7 @@ export class TenantUsersPageComponent implements OnInit, OnDestroy {
     attempt();
   }
 
-  updatePage($event: PageEvent): void  {
+  updatePage($event: PageEvent): void {
     this.loadUsersReference.refetch({
       pageIndex: $event.pageIndex,
       pageLength: $event.pageSize,

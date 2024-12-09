@@ -8,7 +8,7 @@ import { CacheScope } from 'apollo-server-types';
 function convertToSeries(growthName) {
   return (connections) => {
     const parts = groupBy(connections, (connection) =>
-      DateTime.fromJSDate(connection.createdAt).toISODate()
+      DateTime.fromJSDate(connection.createdAt).toISODate(),
     );
     const growthSeries = [];
     const totalSeries = [];
@@ -22,7 +22,7 @@ function convertToSeries(growthName) {
         value: range(index + 1).reduce(
           (previousValue, currentValue) =>
             previousValue + parts[Object.keys(parts)[currentValue]].length,
-          0
+          0,
         ),
       });
     });
@@ -321,7 +321,7 @@ export const statisticsType = objectType({
               res,
               (result, value, events) =>
                 result.push({ name: `${String(events)} events`, value }),
-              []
+              [],
             );
           }),
     });
@@ -341,7 +341,7 @@ export const statisticsType = objectType({
             res.map((entry) => ({
               uni: entry.university,
               count: entry._count.university,
-            }))
+            })),
           ),
     });
     t.field({

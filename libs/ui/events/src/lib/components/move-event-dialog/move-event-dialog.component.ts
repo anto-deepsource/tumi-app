@@ -24,11 +24,11 @@ export class MoveEventDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { event: LoadEventQuery['event'] },
     private registrationForMoveGQL: LoadRegistrationForMoveGQL,
-    private createEventRegistrationCodeGQL: CreateEventRegistrationCodeGQL
+    private createEventRegistrationCodeGQL: CreateEventRegistrationCodeGQL,
   ) {
     this.registrationQueryRef = this.registrationForMoveGQL.watch();
     this.registration$ = this.registrationQueryRef.valueChanges.pipe(
-      map(({ data }) => data.registration)
+      map(({ data }) => data.registration),
     );
     this.registrationQueryRef.refetch({
       registrationId: this.data.event?.activeRegistration?.id ?? '',
@@ -43,7 +43,7 @@ export class MoveEventDialogComponent {
         this.createEventRegistrationCodeGQL.mutate({
           registrationId: registration.id,
           eventId: registration.eventId,
-        })
+        }),
       );
       this.registrationQueryRef.refetch();
     }
